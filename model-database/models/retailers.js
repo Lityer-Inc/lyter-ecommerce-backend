@@ -25,15 +25,7 @@ const retailers = sequelize.define("retailers", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  avatar: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   company: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  job: {
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -52,12 +44,7 @@ const retailers = sequelize.define("retailers", {
   password: {
     type: Sequelize.STRING,
     allowNull: false,
-  },
-  account_status: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
-  },
+  }, 
   socials_twitter: {
     type: Sequelize.STRING,
     allowNull: false,

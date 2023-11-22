@@ -1,6 +1,6 @@
 const Products = require("../model-database/models/products");
 const Retailers = require("../model-database/models/retailers");
-const Stores = require("../model-database/models/store");
+const Stores = require("../model-database/models/stores");
 const Categories = require("../model-database/models/category");
 const ErrorResponse = require("../utils/errorResponse");
 

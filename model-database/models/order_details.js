@@ -18,12 +18,11 @@ const OrderDetails = sequelize.define("order_details", {
       key: 'id',  // key into products
     }
   },
-  price: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
+    price: {
+    type: Sequelize.DECIMAL(10, 2),  
     allowNull: false,
+    defaultValue: 0.00,
   }
-  // more fields, possibly storeId
   
 });
 

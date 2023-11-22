@@ -1,13 +1,13 @@
 const Customer = require("../model-database/models/customers");
 const Retailers = require("../model-database/models/retailers");
 const Products = require("../model-database/models/products");
-const Store = require("../model-database/models/store");
+const Stores = require("../model-database/models/stores");
 const ErrorResponse = require("../utils/errorResponse");
 const { sequelize } = require("sequelize");
 
 exports.AddStore = async (req, res, next) => {
   const { store_name, store_email, delivery_time, description } = req.body;
-  const store = await Store.create({
+  const store = await Stores.create({
     name: store_name,
     store_email: store_email,
     deliveryTime: delivery_time,

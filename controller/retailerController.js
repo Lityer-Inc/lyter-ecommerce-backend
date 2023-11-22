@@ -1,7 +1,7 @@
 const Customer = require("../model-database/models/customers");
 const Retailers = require("../model-database/models/retailers");
 const Products = require("../model-database/models/products");
-const Store = require("../model-database/models/store");
+const Stores = require("../model-database/models/stores");
 const ErrorResponse = require("../utils/errorResponse");
 const { sequelize } = require("sequelize");
 const Retailer_orders = require("../model-database/models/retailer_order");
@@ -11,7 +11,7 @@ exports.getRetailer = async (req, res, next) => {
   try {
     const retailer = await Retailers.findOne({ where: { id: req.user.id } });
     if (!retailer) return next(new ErrorResponse("Retailer not found", 401));
-    const store = await Store.findOne({ where: { retialerId: req.user.id } });
+    const store = await Stores.findOne({ where: { retialerId: req.user.id } });
     if (!store) return next(new ErrorResponse("Store not found for user", 401));
     const products = await Products.findAll({ where: { storeId: store.id } });
     if (!products)
@@ -33,7 +33,7 @@ exports.getRetailerOrders = async (req, res, next) => {
   try {
     const retailer = await Retailers.findOne({ where: { id: req.user.id } });
     if (!retailer) return next(new ErrorResponse("Retailer not found", 401));
-    const store = await Store.findOne({ where: { retialerId: req.user.id } });
+    const store = await Stores.findOne({ where: { retialerId: req.user.id } });
     if (!store) return next(new ErrorResponse("Store not found for user", 401));
     const retilerOrders = await Retailer_orders.findAll({
       where: { storeId: store.id },

@@ -8,21 +8,21 @@ const customer_orders = sequelize.define("customer_orders", {
     autoIncrement: false, // Disable auto-increment
     defaultValue: Sequelize.UUIDV4, // Provide a default value (e.g., UUIDv4)
     allowNull: false, // Make it non-nullable if required
-  },
-  name: {
-    type: Sequelize.STRING,
+  }, 
+  
+  customerId: {
+    type: Sequelize.DataTypes.UUID,
     allowNull: false,
-    defaultValue: "deprecated"
+    references: {
+      model: 'customers',   // reference customers table
+      key: 'id',         
+    }
   },
-  featuredImage: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    defaultValue: "deprecated"
-  },
+  
   amount: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL(10, 2), 
     allowNull: false,
-    defaultValue: 0,
+    defaultValue: 0.00,
   },
   channel: {
     type: Sequelize.STRING,
@@ -34,10 +34,10 @@ const customer_orders = sequelize.define("customer_orders", {
     allowNull: true,
     defaultValue: "Awaits payments",
   },
-  fufilled: {
+  fulfilled: {
     type: Sequelize.STRING,
     allowNull: true,
-    defaultValue: "Awaits fufillment",
+    defaultValue: "Awaits fulfillment",
   },
   status: {
     type: Sequelize.STRING,

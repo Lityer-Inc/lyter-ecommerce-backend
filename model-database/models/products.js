@@ -21,8 +21,9 @@ const products = sequelize.define("products", {
     allowNull: false,
   },
   price: {
-    type: Sequelize.INTEGER, // Adjust the precision and scale as needed
+    type: Sequelize.DECIMAL(10, 2),  
     allowNull: false,
+    defaultValue: 0.00,
   },
   rating: {
     type: Sequelize.INTEGER, // Adjust the precision and scale as needed
