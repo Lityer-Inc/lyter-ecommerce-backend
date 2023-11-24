@@ -16,10 +16,10 @@ const products = sequelize.define("products", {
     type: Sequelize.INTEGER, // Use INTEGER for whole numbers
     allowNull: false,
   },
-  image: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
+ image: {
+  type: Sequelize.BLOB('medium'),  
+  allowNull: false,
+},
   price: {
     type: Sequelize.DECIMAL(10, 2),  
     allowNull: false,
@@ -28,6 +28,7 @@ const products = sequelize.define("products", {
   rating: {
     type: Sequelize.INTEGER, // Adjust the precision and scale as needed
     allowNull: false,
+    defaultValue: 10,
   },
   isFeatured: {
     type: Sequelize.BOOLEAN,

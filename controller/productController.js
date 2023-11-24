@@ -38,36 +38,44 @@ exports.getParticularProducts = async (req, res, next) => {
     next(error);
   }
 };
-
 exports.AddProducts = async (req, res, next) => {
-  const { name, price, quantity, image, description, barcode, category } =
-    req.body;
-  const retailer = await Retailers.findOne({ where: { id: req.user.id } });
-  const retailerStore = await Stores.findOne({
-    where: { retailerId: req.user.id },
-  });
-  const categories = await Categories.findOne({
-    where: { category: category },
-  });
+ 
+ if (!req.file) {
+ 
+      return next(new ErrorResponse("No Product Image.", 401)); 
+ }
+ 
+  const { name, price, quantity, description, barcode, category } = req.body;
+  const image = req.file.buffer; // Get image data from req.file (with multer)
+ 
+  // Expecting one retailer in the DB and one store.
+  const retailer = await Retailers.findOne();
+  const retailerStore = await Stores.findOne({ where: { retailerId: retailer.id } });
+  const categoryIdPadded = '1'.padStart(36, ' '); // Just hardcode 1 for now.
 
-  const product = await Products.create({
-    name: name,
-    countInStock: quantity,
-    price: price,
-    image: image,
-    description: description,
-    isFeatured: true,
-    barcode: barcode,
-    status: "active",
-    storeId: retailerStore.id,
-    retailerId: retailer.id,
-    categoryId: categories.id,
-  });
+  try {
+    const product = await Products.create({
+      name: name,
+      countInStock: quantity,
+      price: price,
+      image: image, // Store the image as a buffer
+      description: description,
+      isFeatured: true,
+      barcode: barcode,
+      status: "active",
+      storeId: retailerStore.id,
+      retailerId: retailer.id,
+      categoryId: categoryIdPadded,
+    });
 
-  if (!product)
-    return next(new ErrorResponse("this product cannot be added!", 401));
+    if (!product) {
+      return next(new ErrorResponse("This product cannot be added!", 401));
+    }
 
-  res.status(200).json({ status: true, message: "Product added created" });
+    res.status(200).json({ status: true, message: "Product added successfully" });
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.boughtProduct = async (req, res) => {
