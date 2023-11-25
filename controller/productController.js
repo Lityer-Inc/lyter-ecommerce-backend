@@ -3,8 +3,10 @@ const Retailers = require("../model-database/models/retailers");
 const Stores = require("../model-database/models/stores");
 const Categories = require("../model-database/models/category");
 const ErrorResponse = require("../utils/errorResponse");
+const Product = require('../model-database/models/products');  
 
-exports.getProducts = async (req, res, next) => {
+exports.getProducts = async (req, res, next) => { 
+
   let filter = {};
   if (req.query) {
     filter = req.query;
