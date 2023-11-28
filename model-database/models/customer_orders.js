@@ -19,6 +19,54 @@ const customer_orders = sequelize.define("customer_orders", {
     }
   },
   
+  fullname: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   delivery_instruction: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   street_address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   city: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   zip: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   phone: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   country: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
+   delivery_address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: " ",
+  }, 
+  
   amount: {
     type: Sequelize.DECIMAL(10, 2), 
     allowNull: false,

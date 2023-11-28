@@ -32,6 +32,8 @@ app.use(Logger.logRequest);
 //   res.send("welcome");
 // });
 
+
+
 //const EndpointHead = process.env.EndpointHead;
 const EndpointHead = ""; // temporary...- JF
  
@@ -40,6 +42,15 @@ app.use(`${EndpointHead}/products`, product);
 app.use(`${EndpointHead}/customer`, customer); 
 app.use(`${EndpointHead}/store`, customer);  // probably store should have its own route
 app.use(`${EndpointHead}/retailer`, customer); // probably retailer should have its own route.
+   
+
+// Middleware to log incoming requests to the orders route
+app.use(`/orders`, (req, res, next) => {
+  console.log(`Incoming request for orders route: ${req.method} ${req.originalUrl}`);
+  console.log(`Request body:`, req.body);
+  next();
+}, order);
+
 
 // Error handler middleware
 app.use(handleErrors);
