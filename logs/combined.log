@@ -419,3 +419,16 @@
 {"level":"info","message":"GET /products/get_products","timestamp":"2023-11-30T07:34:01.199Z"}
 {"level":"info","message":"POST /check","timestamp":"2023-11-30T07:34:01.210Z"}
 {"level":"info","message":"GET /decodeJwt","timestamp":"2023-11-30T07:34:01.224Z"}
+{"level":"info","message":"GET /products/get_products","timestamp":"2023-11-30T17:53:43.552Z"}
+{"level":"info","message":"POST /check","timestamp":"2023-11-30T17:53:44.037Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2023-11-30T17:53:44.044Z"}
+{"level":"info","message":"POST /check","timestamp":"2023-11-30T17:54:16.869Z"}
+{"level":"info","message":"POST /auth/login","timestamp":"2023-11-30T17:54:25.734Z"}
+{"level":"info","message":"POST /auth/login","timestamp":"2023-11-30T17:54:29.296Z"}
+{"level":"info","message":"GET /products/get_products","timestamp":"2023-11-30T17:54:34.734Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2023-11-30T17:54:34.745Z"}
+{"level":"info","message":"GET /products/get_products","timestamp":"2023-11-30T17:54:47.852Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2023-11-30T17:54:47.862Z"}
+{"level":"info","message":"POST /check","timestamp":"2023-11-30T17:54:51.407Z"}
+{"level":"info","message":"GET /products/get_products","timestamp":"2023-11-30T17:54:51.410Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2023-11-30T17:54:51.418Z"}
