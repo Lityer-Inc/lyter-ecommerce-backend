@@ -18,7 +18,7 @@ const Category = require("./model-database/models/category");
 const Store = require("./model-database/models/stores");
 const OrderDetails = require("./model-database/models/order_details");
 const sequelize = require("./model-database/database/database");
-
+const { DecodeJwt } = require("./utils/decodeJwt");
 const app = express();
 
 //parse application/json
@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 // Logger middleware
 app.use(Logger.logRequest);
+
 
 // app.get("/", function (req, res) {
 //   res.send("welcome");
@@ -42,6 +43,8 @@ app.use(`${EndpointHead}/products`, product);
 app.use(`${EndpointHead}/customer`, customer); 
 app.use(`${EndpointHead}/store`, customer);  // probably store should have its own route
 app.use(`${EndpointHead}/retailer`, customer); // probably retailer should have its own route.
+
+app.get(`${EndpointHead}/decodeJwt`, DecodeJwt); // probably retailer should have its own route.
    
 
 // Middleware to log incoming requests to the orders route

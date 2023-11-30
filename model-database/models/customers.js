@@ -17,23 +17,27 @@ const customers = sequelize.define("customers", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  mobile: {
+  name: {
     type: Sequelize.STRING,
-    allowNull: true,
-  },
-  city: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  address: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  } ,
-  account_status: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
-  },
+    allowNull: false
+  }
+  // mobile: {
+  //   type: Sequelize.STRING,
+  //   allowNull: true,
+  // },
+  // city: {
+  //   type: Sequelize.STRING,
+  //   allowNull: true,
+  // },
+  // address: {
+  //   type: Sequelize.STRING,
+  //   allowNull: true,
+  // } ,
+  // account_status: {
+  //   type: Sequelize.BOOLEAN,
+  //   allowNull: false,
+  //   defaultValue: true,
+  // },
 });
 
 module.exports = customers;
