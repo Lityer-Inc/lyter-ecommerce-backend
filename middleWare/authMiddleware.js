@@ -13,7 +13,7 @@ const requireCustomerAuth = (req, res, next) => {
 
     if (!token) return next(new ErrorResponse("No token available", 401));
 
-    jwt.verify(token, process.env.Secret, async (err, decodedToken) => {
+    jwt.verify(token, "SECRET", async (err, decodedToken) => {
       if (err) return next(new ErrorResponse("Invalid token", 401));
 
       let customer = await Customer.findById(decodedToken.id);
@@ -35,7 +35,7 @@ const requireRetailerAuth = (req, res, next) => {
 
     if (!token) return next(new ErrorResponse("No token available", 401));
 
-    jwt.verify(token, process.env.Secret, async (err, decodedToken) => {
+    jwt.verify(token, "SECRET", async (err, decodedToken) => {
       if (err) return next(new ErrorResponse("Invalid token", 401));
 
       let retailer = await Retailer.findById(decodedToken.id);

@@ -13,14 +13,17 @@ exports.createCustomer = async (req, res, next) => {
       email: email,
       name: name,
       password: hashedPassword,
-      balanceUsdt: 0,
-      balanceUsdc: 0,
+      createdAt: new Date().getTime()
+      // balanceUsdt: 0,
+      // balanceUsdc: 0,
     });
 
     if (!customer)
       return next(new ErrorResponse("the user cannot be created!", 401));
 
-    res.status(200).json({ status: true, message: "Account created" });
+    const token = createToken(await customer.dataValues.id);
+    console.log('customer.databavalues.id : ', customer.dataValues.id);
+    res.status(200).json({ status: true, message: "Account created", token });
   } catch (error) {
     next(error);
   }
@@ -48,7 +51,8 @@ exports.createRetailer = async (req, res, next) => {
 };
 
 exports.loginUser = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password } = await req.body;
+  console.log('req body: ', req.body);
   try {
     const customerCheck = await Customer.findOne({ where: { email: email } });
     const retailerCheck = await Retailer.findOne({ where: { email: email } });
@@ -63,7 +67,6 @@ exports.loginUser = async (req, res, next) => {
     } else {
       user = retailerCheck;
     }
-
     const auth = await bcrypt.compare(password, user.dataValues.password);
     if (!auth) return next(new ErrorResponse("Incorrect password"));
 
