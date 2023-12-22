@@ -6,7 +6,7 @@ import {getProducts,getParticularProducts,boughtProduct,AddProducts} from '../co
 
 const upload = multer({ storage: multer.memoryStorage() }); // Configure multer to use memory storage instead of upload to a folder as this goes into DB.
 
-productRouter.post("/get_products", getProducts);
+productRouter.get("/", getProducts);
 productRouter.get("/get_product/:product_id",getParticularProducts);
 productRouter.post("/buy_product", boughtProduct);
 
