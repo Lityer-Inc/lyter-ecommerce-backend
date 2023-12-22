@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const retailerController = require("../controller/retailerController");
-const multer = require("multer");
-const { requireRetailerAuth } = require("../middleWare/authMiddleware");
+import express from "express";
+import retailerRouter from "express.Router";
+import retailerController, { getRetailer, getRetailerOrders, updateRetailer } from "../controller/retailerController.js";
+import multer from "multer";
+import { requireRetailerAuth } from "../middleWare/authMiddleware.js";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -16,26 +16,26 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get(
+retailerRouter.get(
   "/get_retailer",
   requireRetailerAuth,
-  retailerController.getRetailer
+  getRetailer
 );
-router.get(
+retailerRouter.get(
   "/retailer_orders",
   requireRetailerAuth,
-  retailerController.getRetailerOrder
+  getRetailerOrders
 );
-router.get(
+retailerRouter.get(
   "/fufill_retailer_order",
   requireRetailerAuth,
   retailerController.fufillRetailerOrder
 );
-router.put(
+retailerRouter.put(
   "/update_retailer",
   requireRetailerAuth,
   upload.single("img_url"),
-  retailerController.updateRetailer
+ updateRetailer
 );
 
-module.exports = router;
+export default retailerRouter;
