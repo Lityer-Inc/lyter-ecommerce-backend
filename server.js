@@ -19,6 +19,7 @@ const Store = require("./model-database/models/stores");
 const OrderDetails = require("./model-database/models/order_details");
 const sequelize = require("./model-database/database/database");
 const { DecodeJwt } = require("./utils/decodeJwt");
+const { default: mongoose } = require("mongoose");
 const app = express();
 
 //parse application/json
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 // Logger middleware
 app.use(Logger.logRequest);
-// test
+
 
 // app.get("/", function (req, res) {
 //   res.send("welcome");
@@ -37,7 +38,9 @@ app.use(Logger.logRequest);
 
 //const EndpointHead = process.env.EndpointHead;
 const EndpointHead = ""; // temporary...- JF
- 
+ mongoose.connect("mongodb+srv://lityer:123@cluster0.jla8m8u.mongodb.net/?retryWrites=true&w=majority").then(()=>{
+  console.log("connected");
+ }).then((e)=>{console.log(e)});
 app.use(`${EndpointHead}/auth`, auth);
 app.use(`${EndpointHead}/products`, product);
 app.use(`${EndpointHead}/customer`, customer); 
@@ -58,34 +61,34 @@ app.use(`/orders`, (req, res, next) => {
 // Error handler middleware
 app.use(handleErrors);
 
-//Establishing database relationships
+// //Establishing database relationships
  
-// Customer-Order Relationship
-Customer.hasMany(CustomerOrder);
-CustomerOrder.belongsTo(Customer); 
+// // Customer-Order Relationship
+// Customer.hasMany(CustomerOrder);
+// CustomerOrder.belongsTo(Customer); 
 
-// Retailer-Product-store Relationship
-Store.hasMany(Product);
-Store.belongsTo(Retailer, { foreignKey: "retailerId" });
-Product.belongsTo(Store, { foreignKey: "storeId" });
+// // Retailer-Product-store Relationship
+// Store.hasMany(Product);
+// Store.belongsTo(Retailer, { foreignKey: "retailerId" });
+// Product.belongsTo(Store, { foreignKey: "storeId" });
  
-//Category to product relationship
-Category.hasMany(Product, { foreignKey: "categoryId" });
-Product.belongsTo(Category, { foreignKey: "categoryId" });
+// //Category to product relationship
+// Category.hasMany(Product, { foreignKey: "categoryId" });
+// Product.belongsTo(Category, { foreignKey: "categoryId" });
 
-// Each order detail is for one product
-OrderDetails.belongsTo(Product, { foreignKey: "productId" });
+// // Each order detail is for one product
+// OrderDetails.belongsTo(Product, { foreignKey: "productId" });
 
-// sequelize sync //ini my database
-sequelize
-  .sync()
-  // .sync()
-  .then((result) => {
-    //console.log(result);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// // sequelize sync //ini my database
+// sequelize
+//   .sync()
+//   // .sync()
+//   .then((result) => {
+//     //console.log(result);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 app.listen(8000, function () {
   console.log("App is Listening http://localhost:8000");
