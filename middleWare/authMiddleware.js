@@ -1,9 +1,11 @@
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
-const Customer = require("../model-database/models/customers");
-const ErrorResponse = require("../utils/errorResponse");
+import dotenv from 'dotenv';
+dotenv.config();
+import jwt from 'jsonwebtoken';
+import customers from '../model-database/models/customers.js';
+import ErrorResponse from '../utils/errorResponse.js';
 
-const requireCustomerAuth = (req, res, next) => {
+
+export const requireCustomerAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
   // Check if the header exists and has the Bearer token format
@@ -25,7 +27,7 @@ const requireCustomerAuth = (req, res, next) => {
   }
 };
 
-const requireRetailerAuth = (req, res, next) => {
+export const requireRetailerAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
   // Check if the header exists and has the Bearer token format
@@ -46,5 +48,3 @@ const requireRetailerAuth = (req, res, next) => {
     });
   }
 };
-
-module.exports = { requireCustomerAuth, requireRetailerAuth };

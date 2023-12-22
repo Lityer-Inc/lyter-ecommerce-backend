@@ -1,21 +1,22 @@
-const express = require("express");
-const multer = require("multer");
-const router = express.Router();
-const productController = require("../controller/productController");
+import express from 'express';
+import multer from 'multer';
+const productRouter = express.Router();
+import {getProducts,getParticularProducts,boughtProduct,AddProducts} from '../controller/productController.js';
+
 
 const upload = multer({ storage: multer.memoryStorage() }); // Configure multer to use memory storage instead of upload to a folder as this goes into DB.
 
-router.get("/get_products", productController.getProducts);
-router.get("/get_product/:product_id", productController.getParticularProducts);
-router.post("/buy_product", productController.boughtProduct);
+productRouter.post("/get_products", getProducts);
+productRouter.get("/get_product/:product_id",getParticularProducts);
+productRouter.post("/buy_product", boughtProduct);
 
 // Use multer for multipart form data.
-router.post("/add_product", upload.single('image'), (req, res, next) => {
+productRouter.post("/add_product", upload.single('image'), (req, res, next) => {
   console.log("Request body:", req.body);
   console.log("Request file:", req.file);
   next(); // Pass control to the next middleware or controller.
-}, productController.AddProducts); 
+}, AddProducts); 
 
 
-module.exports = router;
+export default productRouter;
 
