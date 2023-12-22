@@ -3,7 +3,6 @@ import multer from "multer";
 import { requireCustomerAuth } from "../middleWare/authMiddleware.js";
 import express from "express"
 
-
 const customerRouter = express.Router();
 
 const storage = multer.diskStorage({
