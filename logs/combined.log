@@ -436,3 +436,6 @@
 {"level":"info","message":"GET /products","timestamp":"2023-12-22T19:07:21.973Z"}
 {"level":"info","message":"GET /stores","timestamp":"2023-12-22T19:08:16.869Z"}
 {"level":"info","message":"GET /stores","timestamp":"2023-12-22T19:12:46.478Z"}
+{"level":"info","message":"GET /stores/10","timestamp":"2023-12-25T13:42:22.548Z"}
+{"level":"info","message":"GET /stores/10","timestamp":"2023-12-25T13:42:45.646Z"}
+{"level":"info","message":"GET /stores/10","timestamp":"2023-12-25T13:43:11.996Z"}

@@ -36,15 +36,16 @@ export const getStores = async (req, res) => {
 
 export const getSpecificStore = async (req, res) => {//returns the specific store according to the custom id provided. Not the MongoDb id
   try {
-    const stores = await storeModel.find();
+    
+    const stores = await storeModel.findOne({id:req.params.id});
 
     if (stores.length === 0) {
-      return res.status(404).json({ message: "No stores found" });
+      return res.status(404).json({ message: "Store Does not Exist" });
     }
 
     res.json(stores);
   } catch (error) {
-    console.error("Error fetching stores:", error);
+    console.error("Error fetching store:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
