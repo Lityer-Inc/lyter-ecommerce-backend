@@ -432,3 +432,7 @@
 {"level":"info","message":"POST /check","timestamp":"2023-11-30T17:54:51.407Z"}
 {"level":"info","message":"GET /products/get_products","timestamp":"2023-11-30T17:54:51.410Z"}
 {"level":"info","message":"GET /decodeJwt","timestamp":"2023-11-30T17:54:51.418Z"}
+{"level":"info","message":"GET /products","timestamp":"2023-12-22T19:06:52.066Z"}
+{"level":"info","message":"GET /products","timestamp":"2023-12-22T19:07:21.973Z"}
+{"level":"info","message":"GET /stores","timestamp":"2023-12-22T19:08:16.869Z"}
+{"level":"info","message":"GET /stores","timestamp":"2023-12-22T19:12:46.478Z"}
