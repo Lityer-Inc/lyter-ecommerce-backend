@@ -5,10 +5,10 @@ export const productSchema=new mongoose.Schema({
         type: String,
         required: true,
       },
-      storeName: {
-        type: String,
-        required: true,
-      },
+      // storeName: {
+      //   type: String,
+      //   required: true,
+      // },
       countInStock: {
         type: Number,
         required: true,
