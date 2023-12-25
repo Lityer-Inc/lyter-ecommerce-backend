@@ -3,7 +3,7 @@ import  {storeModel}  from "../models/Store.js";
 
 
 export const AddStore = async (req, res, next) => {
-  // const { store_name, store_email, delivery_time, description } = req.body;
+  // const { name, store_email, delivery_time, description } = req.body;
   // const store = await Stores.create({
   //   name: store_name,
   //   store_email: store_email,
@@ -36,7 +36,7 @@ export const getStores = async (req, res) => {
 
 export const getSpecificStore = async (req, res) => {//returns the specific store according to the custom id provided. Not the MongoDb id
   try {
-    
+
     const stores = await storeModel.findOne({id:req.params.id});
 
     if (stores.length === 0) {
