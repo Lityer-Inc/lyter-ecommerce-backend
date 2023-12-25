@@ -1,14 +1,19 @@
 import mongoose from "mongoose";
 
 export const productSchema=new mongoose.Schema({
+  id:{
+    type: String,
+    required: true,
+    unique:true,//id must always be unique for the products
+  },
     name: {
         type: String,
         required: true,
       },
-      // storeName: {
-      //   type: String,
-      //   required: true,
-      // },
+      storeName: {
+        type: String,
+        required: true,
+      },
       countInStock: {
         type: Number,
         required: true,
@@ -24,7 +29,7 @@ export const productSchema=new mongoose.Schema({
       },
       rating: {
         type: Number,
-        required: true,
+        required: false,
         default: 10,
       },
       isFeatured: {

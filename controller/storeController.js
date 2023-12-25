@@ -1,9 +1,21 @@
 import  {storeModel}  from "../models/Store.js";
 
-export const AddStore = async (req, res, next) => {
-  try {
-    
 
+export const addStoreProduct=async (req,res)=>{
+  const id=req.params.id
+  const stores = await storeModel.find({id});
+
+
+  if (stores.length === 0) {
+    return res.status(404).json({ message: "No stores found" });
+  }
+
+return res.status(201).json(stores);
+}
+
+
+export const AddStore = async (req, res, next) => {//to add a new store to the mongoDb database
+  try {
     // Check for required fields
     if (!req.body.id || !req.body.name || !req.body.store_email || !req.body.deliveryTime) {
       return res.status(400).json({ error: "Required fields are missing." });
@@ -40,7 +52,7 @@ export const AddStore = async (req, res, next) => {
      const savedStore = await newStore.save();
 
     // Respond with the saved store data
-    res.status(201).json(storeData);
+    res.status(201).json(savedStore);
   } catch (error) {
     // Handle error
     console.error("Error adding store:", error);
@@ -85,3 +97,18 @@ export const getSpecificStore = async (req, res) => {//returns the specific stor
 };
 
 
+export const getStoreProducts = async (req, res) => {//returns the store products in the db
+  try {
+
+    const stores = await storeModel.findOne({id:req.params.id});
+
+    if (stores.length === 0) {
+      return res.status(404).json({ message: "Store Does not Exist" });
+    }
+
+    res.json(stores.products);
+  } catch (error) {
+    console.error("Error fetching store:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
