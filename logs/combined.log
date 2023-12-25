@@ -439,3 +439,14 @@
 {"level":"info","message":"GET /stores/10","timestamp":"2023-12-25T13:42:22.548Z"}
 {"level":"info","message":"GET /stores/10","timestamp":"2023-12-25T13:42:45.646Z"}
 {"level":"info","message":"GET /stores/10","timestamp":"2023-12-25T13:43:11.996Z"}
+{"level":"info","message":"POST /stores/add_store?id=1&name=test%20store&store_email=test@gmail.com&deliveryTime=1%20day&description=test&avatar=null&revenue=10000&sales=200","timestamp":"2023-12-25T14:44:02.374Z"}
+{"level":"info","message":"POST /stores/add_store?id=1&name=test%20store&store_email=test@gmail.com&deliveryTime=1%20day&description=test&avatar=null&revenue=10000&sales=200","timestamp":"2023-12-25T14:44:39.181Z"}
+{"level":"info","message":"POST /stores/add_store?id=1&name=test%20store&store_email=test@gmail.com&deliveryTime=1%20day&description=test&avatar=test&revenue=10000&sales=200","timestamp":"2023-12-25T14:45:45.315Z"}
+{"level":"info","message":"POST /stores/add_store?id=1&name=test%20store&store_email=test@gmail.com&deliveryTime=1%20day&description=test&avatar=test&revenue=10000&sales=200","timestamp":"2023-12-25T15:20:26.429Z"}
+{"level":"info","message":"POST /stores/add_store?id=1&name=test%20store&store_email=test@gmail.com&deliveryTime=1%20day&description=test&avatar=test&revenue=10000&sales=200","timestamp":"2023-12-25T15:22:20.047Z"}
+{"level":"info","message":"POST /stores/add_store?id=1&name=test%20store&store_email=test@gmail.com&deliveryTime=1%20day&description=test&avatar=test&revenue=10000&sales=200","timestamp":"2023-12-25T15:22:55.170Z"}
+{"level":"info","message":"POST /stores/add_store","timestamp":"2023-12-25T15:23:37.948Z"}
+{"level":"info","message":"POST /stores/add_store","timestamp":"2023-12-25T15:23:41.973Z"}
+{"level":"info","message":"POST /stores/add_store","timestamp":"2023-12-25T15:23:58.136Z"}
+{"level":"info","message":"POST /stores/add_store","timestamp":"2023-12-25T15:24:04.769Z"}
+{"level":"info","message":"POST /stores/add_store","timestamp":"2023-12-25T15:26:05.311Z"}

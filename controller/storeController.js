@@ -2,19 +2,10 @@ import  {storeModel}  from "../models/Store.js";
 
 export const AddStore = async (req, res, next) => {
   try {
-    const {
-      id,
-      name,
-      store_email,
-      deliveryTime,
-      description,
-      avatar,
-      revenue,
-      sales,
-    } = req.body;
+    
 
     // Check for required fields
-    if (!id || !name || !store_email || !deliveryTime) {
+    if (!req.body.id || !req.body.name || !req.body.store_email || !req.body.deliveryTime) {
       return res.status(400).json({ error: "Required fields are missing." });
     }
 
@@ -30,32 +21,34 @@ export const AddStore = async (req, res, next) => {
 
     // Create the store data
     const storeData = {
-      id,
-      name,
-      store_email,
-      deliveryTime,
-      description: description || null,
-      avatar: avatar || null,
-      revenue: revenue || 0,
-      sales: sales || 0,
+      id:req.body.id,
+      name:req.body.name,
+      store_email:req.body.store_email,
+      deliveryTime:req.body.deliveryTime,
+      description: req.body.description || null,
+      avatar: req.body.avatar || null,
+      revenue: req.body.revenue || 0,
+      sales: req.body.sales || 0,
       products: null,
       // Add other fields as needed
     };
 
     // Create a new store instance
-    const newStore = new storeModel(storeData);
+     const newStore = new storeModel(storeData);
 
     // Save the new store to the database
-    const savedStore = await newStore.save();
+     const savedStore = await newStore.save();
 
     // Respond with the saved store data
-    res.status(201).json(savedStore);
+    res.status(201).json(storeData);
   } catch (error) {
     // Handle error
     console.error("Error adding store:", error);
     res.status(500).send("Internal Server Error");
   }
 };
+
+
 
 
 //gets the list of all the available stores in the mongodb
