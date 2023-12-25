@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
 export const productSchema=new mongoose.Schema({
-  id:{
-    type: String,
-    required: true,
-    unique:true,//id must always be unique for the products
-  },
     name: {
         type: String,
         required: true,
@@ -19,7 +14,7 @@ export const productSchema=new mongoose.Schema({
         required: true,
       },
       image: {
-        type: Buffer, // storing images as Buffer data
+        type: String, // store images as Buffer data
         required: true,
       },
       price: {

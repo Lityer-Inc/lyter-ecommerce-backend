@@ -1,12 +1,9 @@
 import mongoose from "mongoose";
 import { productSchema } from "./Products.js";
 
+
 const storeSchema = new mongoose.Schema({
-  id:{
-    type: String,
-    required: true,
-    unique:true,//id must always be unique for the store
-  },
+
   name: {
     type: String,
     required: true,
@@ -37,9 +34,11 @@ const storeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  products: [productSchema], 
+  products: {
+   type: [productSchema],
+   default:[],
 
+  }
 });
 
 export const storeModel = mongoose.model("Store", storeSchema);
-
