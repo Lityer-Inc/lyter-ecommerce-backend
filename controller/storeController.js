@@ -69,7 +69,7 @@ export const AddStore = async (req, res) => {
       revenue: req.body.revenue || 0,
       sales: req.body.sales || 0,
       products: null,
-      id:req.body.id
+      id:req.body.id,
     });
 
     // Save the new store to the database
