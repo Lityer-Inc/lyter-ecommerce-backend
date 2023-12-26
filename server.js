@@ -1,8 +1,6 @@
 import express  from "express";
-
-import product from "./routes/product.js";
+import userRouter from "./routes/user.js";
 import orderRouter from "./routes/order.js";
-import store from "./routes/store.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 import {handleErrors} from "./middleWare/error.js";
@@ -10,7 +8,7 @@ import {Logger} from "./middleWare/log.js";
 import { DecodeJwt } from "./utils/decodeJwt.js";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth.js";
-import productRouter from "./routes/product.js";
+
 import customerRouter from "./routes/customer.js";
 import storeRouter from "./routes/store.js";
 
@@ -33,12 +31,13 @@ const EndpointHead = ""; // temporary...- JF
  mongoose.connect("mongodb+srv://lityer:123@cluster0.jla8m8u.mongodb.net/?retryWrites=true&w=majority").then(()=>{
   console.log("connected");
  }).then((e)=>{console.log(e)});
-app.use(`${EndpointHead}/auth`, authRouter);
-app.use(`${EndpointHead}/customer`, customerRouter); 
-app.use(`${EndpointHead}/stores`, storeRouter);  // probably store should have its own route
-app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
 
-app.get(`${EndpointHead}/decodeJwt`, DecodeJwt); // probably retailer should have its own route.
+
+// app.use(`${EndpointHead}/auth`, authRouter);
+app.use(`${EndpointHead}/user`, userRouter); 
+app.use(`${EndpointHead}/stores`, storeRouter);  // done with mostly store routes...however some need to be implemented
+app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
+// app.get(`${EndpointHead}/decodeJwt`, DecodeJwt); // probably retailer should have its own route.
    
 
 // Middleware to log incoming requests to the orders route

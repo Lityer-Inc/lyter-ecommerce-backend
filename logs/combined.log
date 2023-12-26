@@ -587,3 +587,7 @@
 {"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2023-12-26T17:03:06.430Z"}
 {"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fccc6b6","timestamp":"2023-12-26T17:03:16.787Z"}
 {"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2023-12-26T17:03:24.955Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2023-12-26T17:13:51.793Z"}
+{"level":"info","message":"POST /user/register","timestamp":"2023-12-26T17:31:09.779Z"}
+{"level":"info","message":"POST /user/register","timestamp":"2023-12-26T17:31:26.939Z"}
+{"level":"info","message":"POST /user/register","timestamp":"2023-12-26T17:31:48.486Z"}
