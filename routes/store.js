@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct } from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 
@@ -10,5 +10,6 @@ storeRouter.post("/:id/addProduct",addStoreProduct);// adds the product to the s
 storeRouter.get("/",getStores);//returns all the stores in the mongoDb 
 storeRouter.get("/:id",getSpecificStore);//Returns the specific store with the store id
 storeRouter.get("/:id/products",getStoreProducts);//get products of the store who's id is passed from frontend
+storeRouter.get("/:storeId/products/:productId",getSpecificStoreProduct);
 
 export default storeRouter;

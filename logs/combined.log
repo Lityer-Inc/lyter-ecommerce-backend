@@ -578,3 +578,6 @@
 {"level":"info","message":"POST /stores/6589e05b5982dc4074a8304a/products","timestamp":"2023-12-25T20:14:00.024Z"}
 {"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products","timestamp":"2023-12-25T20:14:04.516Z"}
 {"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products","timestamp":"2023-12-25T20:14:42.735Z"}
+{"level":"info","message":"GET /stores/123abc/products/abc123","timestamp":"2023-12-26T14:19:35.988Z"}
+{"level":"info","message":"GET /stores/123abc/products/abc123","timestamp":"2023-12-26T14:22:14.120Z"}
+{"level":"info","message":"GET /stores/123abc/products/abc12","timestamp":"2023-12-26T15:36:33.441Z"}

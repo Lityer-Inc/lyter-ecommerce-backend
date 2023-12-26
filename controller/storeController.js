@@ -136,9 +136,29 @@ export const getStoreProducts = async (req, res) => {//returns the store product
 
 //returns a specific product in a store
 export const getSpecificStoreProduct=async (req,res)=>{
-  const store = await storeModel.findOne({_id:req.params.id});
-  if (!store) {
-    return res.status(404).json({ message: "Store Does not Exist" });
+  try {
+    const storeId=req.params.storeId;
+    const productId=req.params.productId;
+    // Find the store by ID
+    const store = await storeModel.findById(storeId);
+
+    // Check if the store exists
+    if (!store) {
+      return res.status(404).json({ message: "Store not found" });
+    }
+
+    // Find the product within the store by product ID
+    const product = store.products.find((p) => p._id.toString() === productId);
+
+    // Check if the product exists
+    if (!product) {
+      return res.status(404).json({ message: "Product not found in the store" });
+    }
+
+    // Return the specific product details
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  
 }
