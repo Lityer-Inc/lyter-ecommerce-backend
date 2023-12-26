@@ -121,7 +121,6 @@ export const getSpecificStore = async (req, res) => {//returns the specific stor
 
 export const getStoreProducts = async (req, res) => {//returns the store products in the db
   try {
-
     const stores = await storeModel.findOne({_id:req.params.id});
 
     if (!stores) {
@@ -133,3 +132,13 @@ export const getStoreProducts = async (req, res) => {//returns the store product
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+//returns a specific product in a store
+export const getSpecificStoreProduct=async (req,res)=>{
+  const store = await storeModel.findOne({_id:req.params.id});
+  if (!store) {
+    return res.status(404).json({ message: "Store Does not Exist" });
+  }
+  
+}
