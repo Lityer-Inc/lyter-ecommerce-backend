@@ -598,3 +598,4 @@
 {"level":"info","message":"POST /user/register","timestamp":"2023-12-26T17:44:46.039Z"}
 {"level":"info","message":"POST /user/register","timestamp":"2023-12-26T17:44:51.373Z"}
 {"level":"info","message":"POST /user/register","timestamp":"2023-12-26T17:45:15.202Z"}
+{"level":"info","message":"POST /user/login","timestamp":"2023-12-26T18:38:58.782Z"}
