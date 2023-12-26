@@ -581,3 +581,9 @@
 {"level":"info","message":"GET /stores/123abc/products/abc123","timestamp":"2023-12-26T14:19:35.988Z"}
 {"level":"info","message":"GET /stores/123abc/products/abc123","timestamp":"2023-12-26T14:22:14.120Z"}
 {"level":"info","message":"GET /stores/123abc/products/abc12","timestamp":"2023-12-26T15:36:33.441Z"}
+{"level":"info","message":"GET /stores/123abc/products/abc12","timestamp":"2023-12-26T15:45:32.068Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products","timestamp":"2023-12-26T15:46:50.966Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2023-12-26T15:47:08.052Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2023-12-26T17:03:06.430Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fccc6b6","timestamp":"2023-12-26T17:03:16.787Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2023-12-26T17:03:24.955Z"}

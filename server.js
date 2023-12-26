@@ -34,7 +34,6 @@ const EndpointHead = ""; // temporary...- JF
   console.log("connected");
  }).then((e)=>{console.log(e)});
 app.use(`${EndpointHead}/auth`, authRouter);
-app.use(`${EndpointHead}/products`, productRouter);
 app.use(`${EndpointHead}/customer`, customerRouter); 
 app.use(`${EndpointHead}/stores`, storeRouter);  // probably store should have its own route
 app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
