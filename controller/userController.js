@@ -37,7 +37,30 @@ export const userRegisterController = async (req, res) => {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+   
+  export const userGetController = async (req, res) => {
+    try {
+      const user = await userModel.findOne({ _id: req.params.userId });
+  
+      // Check if the user with the specified ID exists
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      return res.status(200).json(user);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
+
 
   export const userLoginController=(req,res)=>{
      res.status(404).json("login hit");
   }
+
+
+  export const userLogoutController=(req,res)=>{
+    res.status(404).json("logout hit");
+ }

@@ -162,3 +162,28 @@ export const getSpecificStoreProduct=async (req,res)=>{
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+//deletes the store from the db as the _id is recieved by params
+export const deleteStore = async (req, res) => {
+  try {
+    const id = req.params.storeId;
+
+    // Check if the store exists
+    const existingStore = await storeModel.findById(id);
+    if (!existingStore) {
+      return res.status(404).json({ error: 'Store not found' });
+    }
+
+    // If the store exists, proceed with deletion
+    const deletedStore = await storeModel.findByIdAndDelete(id);
+
+    if (!deletedStore) {
+      return res.status(500).json({ error: 'Failed to delete store' });
+    }
+
+    return res.json({ message: 'Store deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
