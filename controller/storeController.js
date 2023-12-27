@@ -187,3 +187,38 @@ export const deleteStore = async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const storeId = req.params.storeId;
+    const productId = req.params.productId;
+
+    // Check if the store exists
+    const existingStore = await storeModel.findById(storeId);
+    if (!existingStore) {
+      return res.status(404).json({ error: 'Store not found' });
+    }
+
+    // Check if the product exists within the store
+    const existingProductIndex = existingStore.products.findIndex(
+      (product) => product._id.toString() === productId
+    );
+
+    if (existingProductIndex === -1) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // If the product exists, remove it from the array
+    existingStore.products.splice(existingProductIndex, 1);
+
+    // Save the updated store
+    await existingStore.save();
+
+    return res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

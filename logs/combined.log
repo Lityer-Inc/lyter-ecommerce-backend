@@ -615,3 +615,9 @@
 {"level":"info","message":"DELETE /stores/1233","timestamp":"2023-12-27T13:39:40.200Z"}
 {"level":"info","message":"DELETE /stores/6589e0545982dc4074a83048","timestamp":"2023-12-27T13:48:07.152Z"}
 {"level":"info","message":"DELETE /stores/6589e0545982dc4074a83048","timestamp":"2023-12-27T13:48:23.197Z"}
+{"level":"info","message":"DELETE /stores/6589e0545982dc4074a83048","timestamp":"2023-12-27T14:06:31.988Z"}
+{"level":"info","message":"DELETE /stores/6589e0545982dc4074a8048","timestamp":"2023-12-27T14:06:37.478Z"}
+{"level":"info","message":"DELETE /stores/6589e0545982dc4074a83048","timestamp":"2023-12-27T14:06:44.721Z"}
+{"level":"info","message":"DELETE /stores/6589e05b5982dc4074a8304a/products/6589e1a54ebe31fe36281214","timestamp":"2023-12-27T14:11:27.103Z"}
+{"level":"info","message":"DELETE /stores/6589e05b5982dc4074a8304a/products/6589e1a54ebe31fe36281214","timestamp":"2023-12-27T14:12:04.709Z"}
+{"level":"info","message":"DELETE /stores/6589e05b5982dc4074a8304a/products/6589e21b6dc7272824933433","timestamp":"2023-12-27T14:12:10.249Z"}

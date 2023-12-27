@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct } from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 
@@ -12,6 +12,7 @@ storeRouter.get("/:id",getSpecificStore);//Returns the specific store with the s
 storeRouter.get("/:id/products",getStoreProducts);//get products of the store who's id is passed from frontend
 storeRouter.get("/:storeId/products/:productId",getSpecificStoreProduct);//to get a specific product from a specific store
 storeRouter.delete("/:storeId",deleteStore);//deletes the whole store along with the products
+storeRouter.delete("/:storeId/products/:productId",deleteProduct);//deletes a specific product of a specific store
 
 
 export default storeRouter;
