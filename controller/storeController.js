@@ -222,3 +222,76 @@ export const deleteProduct = async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+//update the details of the store
+export const updateStoreController = async (req, res) => {
+  try {
+    const storeId = req.params.storeId;
+    const body = req.body;
+
+    // Check if the store exists
+    const existingStore = await storeModel.findById(storeId);
+    if (!existingStore) {
+      return res.status(404).json({ error: 'Store not found' });
+    }
+
+    // Update the store fields manually
+    existingStore.name = body.name || existingStore.name;
+    existingStore.avatar = body.avatar || existingStore.avatar;
+    existingStore.store_email = body.store_email || existingStore.store_email;
+    existingStore.deliveryTime = body.deliveryTime || existingStore.deliveryTime;
+    existingStore.description = body.description || existingStore.description;
+
+    // Save the updated store
+    const updatedStore = await existingStore.save();
+
+    return res.json(updatedStore);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+//updates the product of the store of a specific store
+export const updateProductController = async (req, res) => {
+  try {
+    const storeId = req.params.storeId;
+    const productId = req.params.productId;
+    const body = req.body;
+
+    // Check if the store exists
+    const existingStore = await storeModel.findById(storeId);
+    if (!existingStore) {
+      return res.status(404).json({ error: 'Store not found' });
+    }
+
+    // Check if the product exists within the store
+    const existingProduct = existingStore.products.find(
+      (product) => product._id.toString() === productId
+    );
+
+    if (!existingProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Update the product fields manually
+    existingProduct.name = body.name || existingProduct.name;
+    existingProduct.storeName = body.storeName || existingProduct.storeName;
+    existingProduct.countInStock = body.countInStock || existingProduct.countInStock;
+    existingProduct.image = body.image || existingProduct.image;
+    existingProduct.price = body.price || existingProduct.price;
+    existingProduct.rating = body.rating || existingProduct.rating;
+    existingProduct.isFeatured = body.isFeatured || existingProduct.isFeatured;
+    existingProduct.description = body.description || existingProduct.description;
+    existingProduct.barcode = body.barcode || existingProduct.barcode;
+    existingProduct.status = body.status || existingProduct.status;
+
+    // Save the updated store
+    await existingStore.save();
+
+    return res.json({ message: 'Product updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

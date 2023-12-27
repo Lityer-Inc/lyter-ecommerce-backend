@@ -5,10 +5,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import {handleErrors} from "./middleWare/error.js";
 import {Logger} from "./middleWare/log.js";
-import { DecodeJwt } from "./utils/decodeJwt.js";
 import mongoose from "mongoose";
-import authRouter from "./routes/auth.js";
-
 import customerRouter from "./routes/customer.js";
 import storeRouter from "./routes/store.js";
 
