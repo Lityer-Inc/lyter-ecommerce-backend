@@ -189,7 +189,7 @@ export const deleteStore = async (req, res) => {
 };
 
 
-
+//deletes a specific product from the db from a specific store both id's recieved via parameters.
 export const deleteProduct = async (req, res) => {
   try {
     const storeId = req.params.storeId;
