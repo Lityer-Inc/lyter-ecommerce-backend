@@ -12,7 +12,7 @@ export const addStoreProduct=async (req,res)=>{
       image:req.body.image,
       price:req.body.price,
       rating:req.body.rating,
-      isFeatured:req.body.isFeatured,
+      isFeatured:req.body.isFeatured,    
       description:req.body.description,
       barcode:req.body.barcode,
       status:req.body.status,
@@ -45,7 +45,6 @@ export const addStoreProduct=async (req,res)=>{
     console.error("Error adding product to store:", error);
     return res.status(500).send("Internal Server Error");
   }
-
 }
 
 
@@ -84,7 +83,7 @@ export const AddStore = async (req, res) => {
   }
 };
 
-
+ 
 //gets the list of all the available stores in the mongodb
 export const getStores = async (req, res) => {
   try {

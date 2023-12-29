@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 import customerRouter from "./routes/customer.js";
 import storeRouter from "./routes/store.js";
 
-const app = express();
+const app = express(); 
 
 //parse application/json
 app.use(express.json());
