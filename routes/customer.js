@@ -1,8 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../controller/customerController");
-const multer = require("multer");
-const { requireCustomerAuth } = require("../middleWare/authMiddleware");
+import {topUp, updateCustomer} from "../controller/customerController.js";
+import multer from "multer";
+import { requireCustomerAuth } from "../middleWare/authMiddleware.js";
+import express from "express"
+
+const customerRouter = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -16,13 +17,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post(
+customerRouter.post(
   "/",
   requireCustomerAuth,
   upload.single("img_url"),
-  userController.updateCustomer
+  updateCustomer
 );
 
-router.post("/topup", requireCustomerAuth, userController.topUp);
+customerRouter.post("/topup", requireCustomerAuth, topUp);
 
-module.exports = router;
+export default customerRouter;

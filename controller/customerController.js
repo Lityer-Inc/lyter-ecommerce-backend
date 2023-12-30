@@ -1,8 +1,9 @@
-const Customer = require("../model-database/models/customers");
-const ErrorResponse = require("../utils/errorResponse");
-const { sequelize } = require("sequelize");
+import Customer from '../model-database/models/customers.js';
+import ErrorResponse from '../utils/errorResponse.js';
+import { Sequelize } from 'sequelize';
 
-exports.updateCustomer = async (req, res, next) => {
+
+export const updateCustomer = async (req, res, next) => {
   console.log(req.body, "req.body");
   console.log(req.file, "file request");
 
@@ -33,7 +34,7 @@ exports.updateCustomer = async (req, res, next) => {
   }
 };
 
-exports.topUp = async (req, res, next) => {
+export const topUp = async (req, res, next) => {
   const objForUpdate = {};
 
   if (req.body.usdc) {

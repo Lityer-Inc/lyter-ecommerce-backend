@@ -7,7 +7,7 @@ const { sequelize } = require("sequelize");
 const Retailer_orders = require("../model-database/models/retailer_order");
 
 //here I get the retailer, his store and  all products associated
-exports.getRetailer = async (req, res, next) => {
+export const getRetailer = async (req, res, next) => {
   try {
     const retailer = await Retailers.findOne({ where: { id: req.user.id } });
     if (!retailer) return next(new ErrorResponse("Retailer not found", 401));
@@ -29,7 +29,7 @@ exports.getRetailer = async (req, res, next) => {
 };
 
 //Here I get all the orders a retailer gets from his/her store
-exports.getRetailerOrders = async (req, res, next) => {
+export const getRetailerOrders = async (req, res, next) => {
   try {
     const retailer = await Retailers.findOne({ where: { id: req.user.id } });
     if (!retailer) return next(new ErrorResponse("Retailer not found", 401));
@@ -51,7 +51,7 @@ exports.getRetailerOrders = async (req, res, next) => {
   }
 };
 
-exports.updateRetailer = async (req, res, next) => {
+export const updateRetailer = async (req, res, next) => {
   const file = req.file;
   if (!file) return next(new ErrorResponse("no image file uploaded", 401));
 
