@@ -8,4 +8,5 @@ userRouter.post("/login",userLoginController); // to be implemented by undefined
 userRouter.post("/logout",userLogoutController); // to be implemented by undefined
 userRouter.get("/:userId",userGetController);
 
+  
 export default userRouter;

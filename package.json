@@ -32,5 +32,14 @@
   },
   "engines": {
     "node": ">=16.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lityer-Inc/lyter-ecommerce-backend.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Lityer-Inc/lyter-ecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/Lityer-Inc/lyter-ecommerce-backend#readme"
 }

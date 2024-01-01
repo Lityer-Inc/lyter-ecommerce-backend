@@ -10,7 +10,6 @@ import customerRouter from "./routes/customer.js";
 import storeRouter from "./routes/store.js";
 
 const app = express(); 
-
 //parse application/json
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
