@@ -1,5 +1,7 @@
 import userModel from "../models/User.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 // userRegisterController
 export const userRegisterController = async (req, res) => {
   console.log("Received request data:", req.body)
@@ -35,7 +37,17 @@ export const userRegisterController = async (req, res) => {
       });
 
       const newUser = await user.save();
-      return res.status(200).json(newUser);
+
+      //  JWT
+    const token = jwt.sign(
+      { email: newUser.email, id: newUser._id },
+      process.env.ACCESS_TOKEN,
+      { expiresIn: "4d" }
+    );
+
+    // Send both newUser and token in the response
+    return res.status(200).json({ newUser, token });
+
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -78,8 +90,16 @@ export const userRegisterController = async (req, res) => {
       if(!passwordMatch){
         return res.status(404).json({error: 'Invalid password'})
       }
+     //  JWT
+    const token = jwt.sign(
+      { email: user.email, id: user._id },
+      process.env.ACCESS_TOKEN,
+      { expiresIn: "4d" }
+    );
 
-     return res.status(200).json({message: 'Login Successful'}) }
+    // Send token in the response
+    return res.status(200).json({ token, message: 'Login Successful' });
+  }
      catch (error) {
       console.error(error);
       return res.status(500).json({ error: 'Internal server error' });

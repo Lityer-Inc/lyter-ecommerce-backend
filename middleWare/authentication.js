@@ -9,7 +9,7 @@ export const authentication = (req, res, next) =>{
             error: "Unauthorized"
         })
     }
-     jwt.verify(token, 'your-secret-key', (err, decoded) => {
+     jwt.verify(token, process.env.ACCESS_TOKEN, (err, decoded) => {
     if (err) {
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
      }
