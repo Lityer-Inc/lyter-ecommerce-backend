@@ -32,7 +32,7 @@ const EndpointHead = ""; // temporary...- JF
 // app.use(`${EndpointHead}/auth`, authRouter);
 app.use(`${EndpointHead}/user`, userRouter); 
 app.use(`${EndpointHead}/stores`, storeRouter);  // done with mostly store routes...however some need to be implemented
-app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
+// app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
 // app.get(`${EndpointHead}/decodeJwt`, DecodeJwt); // probably retailer should have its own route.
    
 
