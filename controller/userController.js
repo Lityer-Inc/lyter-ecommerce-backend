@@ -1,8 +1,8 @@
 import userModel from "../models/User.js";
 import bcrypt from 'bcrypt';
-
 // userRegisterController
 export const userRegisterController = async (req, res) => {
+  console.log("Received request data:", req.body)
     try {
       if (!req.body.name || !req.body.email || !req.body.password) {
         return res.status(400).json({ error: "Required fields are missing." });
