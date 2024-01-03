@@ -4,11 +4,21 @@ import { cloudinary } from "../utils/cloudinary.js";
 export const addStoreProduct=async (req,res)=>{
   try {
     const id = req.params.id;
+    // Cloudinary
+    if(!req.body.image){
+      return res.status(400).json({error: "Image file is required."})
+    }
+    const result = await cloudinary.uploader.upload(req.body.image.buffer ,{
+      folder: "image"
+    });
+
     const product={
       name:req.body.name,
       storeName:req.body.storeName,
       countInStock:req.body.countInStock,
-      image:req.body.image,
+      image:{
+        img_url: result.secure_url,
+      },
       price:req.body.price,
       rating:req.body.rating,
       isFeatured:req.body.isFeatured,    
@@ -30,7 +40,7 @@ export const addStoreProduct=async (req,res)=>{
       return res.status(400).json(product);
     }
     
-   
+
     store.products = Array.isArray(store.products) ? store.products : [];
     // Add the new product to the store's products array
      store.products = [...store.products, product];
