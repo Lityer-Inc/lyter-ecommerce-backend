@@ -229,16 +229,18 @@ export const updateStoreController = async (req, res) => {
   try {
     const storeId = req.params.storeId;
     const body = req.body;
-
+     
     // Check if the store exists
     const existingStore = await storeModel.findById(storeId);
     if (!existingStore) {
       return res.status(404).json({ error: 'Store not found' });
     }
+    // Use Cloudinary to update the avatar
+    const avatarResult = await cloudinary.uploader.upload(req.file.path);
 
     // Update the store fields manually
     existingStore.name = body.name || existingStore.name;
-    existingStore.avatar = body.avatar || existingStore.avatar;
+    existingStore.avatar = avatarResult.secure_url|| existingStore.avatar;
     existingStore.store_email = body.store_email || existingStore.store_email;
     existingStore.deliveryTime = body.deliveryTime || existingStore.deliveryTime;
     existingStore.description = body.description || existingStore.description;
