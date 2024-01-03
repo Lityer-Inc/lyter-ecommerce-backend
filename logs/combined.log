@@ -807,3 +807,4 @@
 {"level":"info","message":"PUT /stores","timestamp":"2024-01-03T19:19:00.082Z"}
 {"level":"info","message":"PUT /6595af9434894e2fa0126a09","timestamp":"2024-01-03T19:21:07.807Z"}
 {"level":"info","message":"PUT /stores/6595af9434894e2fa0126a09","timestamp":"2024-01-03T19:21:21.076Z"}
+{"level":"info","message":"PUT /stores/6589e05b5982dc4074a8304a/products/6589e16d7a6511641fbcc6b6","timestamp":"2024-01-03T20:19:08.007Z"}

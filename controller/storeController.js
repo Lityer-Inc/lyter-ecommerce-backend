@@ -276,12 +276,14 @@ export const updateProductController = async (req, res) => {
     if (!existingProduct) {
       return res.status(404).json({ error: 'Product not found' });
     }
+    // Use Cloudinary to update the avatar
+    const imageResult = await cloudinary.uploader.upload(req.file.path);
 
     // Update the product fields manually
     existingProduct.name = body.name || existingProduct.name;
     existingProduct.storeName = body.storeName || existingProduct.storeName;
     existingProduct.countInStock = body.countInStock || existingProduct.countInStock;
-    existingProduct.image = body.image || existingProduct.image;
+    existingProduct.image = imageResult.secure_url || existingProduct.image;
     existingProduct.price = body.price || existingProduct.price;
     existingProduct.rating = body.rating || existingProduct.rating;
     existingProduct.isFeatured = body.isFeatured || existingProduct.isFeatured;

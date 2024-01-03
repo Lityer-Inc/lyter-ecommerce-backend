@@ -16,6 +16,6 @@ storeRouter.get("/:storeId/products/:productId", authentication, getSpecificStor
 storeRouter.delete("/:storeId", deleteStore);//deletes the whole store along with the products
 storeRouter.delete("/:storeId/products/:productId",deleteProduct);//deletes a specific product of a specific store
 storeRouter.put("/:storeId",upload.single('avatar'), updateStoreController);//updates the details of the store
-storeRouter.put("/:storeId/products/:productId",updateProductController);//updates a specific product within a specific store
+storeRouter.put("/:storeId/products/:productId", upload.single('image'), updateProductController);//updates a specific product within a specific store
 
 export default storeRouter;
