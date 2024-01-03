@@ -1,6 +1,5 @@
-
 import  {storeModel}  from "../models/Store.js";
-
+import { cloudinary } from "../utils/cloudinary.js";
 
 export const addStoreProduct=async (req,res)=>{
   try {
