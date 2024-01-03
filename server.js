@@ -42,7 +42,6 @@ app.use(`/orders`, (req, res, next) => {
   console.log(`Request body:`, req.body);
   next();
 }, orderRouter);
-
 app.use(handleErrors);
 
 app.listen(8000, function () {

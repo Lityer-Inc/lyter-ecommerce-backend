@@ -2,13 +2,13 @@ import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecific
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 import { authentication } from "../middleWare/authentication.js";
-import { singleUpload } from "../middleWare/multer.js";
+import { upload } from "../middleWare/multer.js";
 
 
 const storeRouter = express.Router();
 
-storeRouter.post("/",  AddStore);// add retailer auth. after done with api.this adds the store to the mongoDB 
-storeRouter.post("/:id/products", singleUpload, addStoreProduct);// adds the product to the store as per the store_id
+storeRouter.post("/", upload.single('avatar'), AddStore);// add retailer auth. after done with api.this adds the store to the mongoDB 
+storeRouter.post("/:id/products", upload.single('image'), addStoreProduct);// adds the product to the store as per the store_id
 storeRouter.get("/", authentication, getStores);//returns all the stores in the mongoDb 
 storeRouter.get("/:id", authentication, getSpecificStore);//Returns the specific store with the store id
 storeRouter.get("/:id/products", authentication, getStoreProducts);//get products of the store who's id is passed from frontend
