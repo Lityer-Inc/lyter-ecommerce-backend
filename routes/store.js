@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getStoreOrdersController,getStoreOrdersController } from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 
@@ -15,5 +15,8 @@ storeRouter.delete("/:storeId",deleteStore);//deletes the whole store along with
 storeRouter.delete("/:storeId/products/:productId",deleteProduct);//deletes a specific product of a specific store
 storeRouter.put("/:storeId",updateStoreController);//updates the details of the store
 storeRouter.put("/:storeId/products/:productId",updateProductController);//updates a specific product within a specific store
+storeRouter.get("/:storeId/orders",getStoreOrdersController);
+storeRouter.get("/:storeId/orders/:orderId",getSpecificStoreOrderController);
+storeRouter.post("/:storeId/orders",getStoreOrdersController);
 
 export default storeRouter;

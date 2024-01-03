@@ -29,7 +29,8 @@ export const productSchema=new mongoose.Schema({
       },
       isFeatured: {
         type: Boolean,
-        required: true,
+        required: false,
+        default:false,
       },
       description: {
         type: String,
@@ -40,7 +41,7 @@ export const productSchema=new mongoose.Schema({
         required: true,
       },
       status: {
-        type: String,
+        type: Boolean,
         required: true,
       },
 });
