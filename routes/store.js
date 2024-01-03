@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getStoreOrdersController,getStoreOrdersController } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getSpecificStoreOrderController,getStoreOrdersController,placeNewOrderController } from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 
@@ -17,6 +17,6 @@ storeRouter.put("/:storeId",updateStoreController);//updates the details of the 
 storeRouter.put("/:storeId/products/:productId",updateProductController);//updates a specific product within a specific store
 storeRouter.get("/:storeId/orders",getStoreOrdersController);
 storeRouter.get("/:storeId/orders/:orderId",getSpecificStoreOrderController);
-storeRouter.post("/:storeId/orders",getStoreOrdersController);
+storeRouter.post("/:storeId/orders",placeNewOrderController);
 
 export default storeRouter;

@@ -325,14 +325,14 @@ export const getSpecificStoreOrderController = async (req, res) => {
   const { storeId, orderId } = req.params;
 
   try {
-    // Assuming you have a method in your model to retrieve specific order by storeId and orderId
+    
     const storeOrder = await storeModel.findOne({ _id: storeId, "orders._id": orderId }).populate('products');
     
     if (!storeOrder) {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    // Assuming you have an array of orders in your store model
+    
     const order = storeOrder.orders.find(order => order._id.toString() === orderId);
 
     return res.status(200).json(order);
@@ -346,7 +346,7 @@ export const getSpecificStoreOrderController = async (req, res) => {
 
 
 
-const placeNewOrderController = async (req, res) => {
+export const placeNewOrderController = async (req, res) => {
   const { storeId } = req.params;
   const userId=req.body.userId;
   const products=req.body.products;
