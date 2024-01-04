@@ -15,6 +15,7 @@ export const userRegisterController = async (req, res) => {
       if (existingUserWithEmail) {
         return res.status(400).json({ error: "User with the same email already exists." });
       }
+      
   
       // Check if a user with the same contactNumber already exists
       if (req.body.contactNumber) {

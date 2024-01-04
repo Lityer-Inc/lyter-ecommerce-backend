@@ -26,11 +26,11 @@ app.use(Logger.logRequest);
 const EndpointHead = ""; // temporary...- JF
  mongoose.connect("mongodb+srv://lityer:123@cluster0.jla8m8u.mongodb.net/?retryWrites=true&w=majority").then(()=>{
   console.log("connected");
- }).then((e)=>{console.log(e)});
+ }).catch((e)=>{console.log(e)});
 
 
 // app.use(`${EndpointHead}/auth`, authRouter);
-app.use(`${EndpointHead}/user`, userRouter); 
+app.use(`${EndpointHead}/user`, userRouter);
 app.use(`${EndpointHead}/stores`, storeRouter);  // done with mostly store routes...however some need to be implemented
 // app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
 // app.get(`${EndpointHead}/decodeJwt`, DecodeJwt); // probably retailer should have its own route.

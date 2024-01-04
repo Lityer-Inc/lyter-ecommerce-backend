@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getSpecificStoreOrderController,getStoreOrdersController,placeNewOrderController } from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 import { authentication } from "../middleWare/authentication.js";
@@ -17,5 +17,10 @@ storeRouter.delete("/:storeId", authentication, deleteStore);//deletes the whole
 storeRouter.delete("/:storeId/products/:productId", authentication, deleteProduct);//deletes a specific product of a specific store
 storeRouter.put("/:storeId", authentication, upload.single('avatar'), updateStoreController);//updates the details of the store
 storeRouter.put("/:storeId/products/:productId", authentication, upload.single('image'), updateProductController);//updates a specific product within a specific store
+
+//apis that are yet to be tested
+storeRouter.get("/:storeId/orders",getStoreOrdersController);
+storeRouter.get("/:storeId/orders/:orderId",getSpecificStoreOrderController);
+storeRouter.post("/:storeId/orders",placeNewOrderController);
 
 export default storeRouter;
