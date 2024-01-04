@@ -104,7 +104,7 @@ export const getStores = async (req, res) => {
 };
 
 export const getSpecificStore = async (req, res) => {
-  //returns the specific store according to the custom id provided. Not the MongoDb id
+  //returns the specific store according to the MongoDb id
   try {
     const stores = await storeModel.findOne({ _id: req.params.id });
 
@@ -201,7 +201,7 @@ export const deleteProduct = async (req, res) => {
     if (!existingStore) {
       return res.status(404).json({ error: "Store not found" });
     }
-
+  
     // Check if the product exists within the store
     const existingProductIndex = existingStore.products.findIndex(
       (product) => product._id.toString() === productId
@@ -269,6 +269,7 @@ export const updateProductController = async (req, res) => {
     }
 
     // Check if the product exists within the store
+
     const existingProduct = existingStore.products.find(
       (product) => product._id.toString() === productId
     );
@@ -342,10 +343,6 @@ export const getSpecificStoreOrderController = async (req, res) => {
   }
 };
 
-// Assuming you have necessary imports and dependencies
-
-
-
 export const placeNewOrderController = async (req, res) => {
   const { storeId } = req.params;
   const userId=req.body.userId;
@@ -360,6 +357,7 @@ export const placeNewOrderController = async (req, res) => {
       storeId,
       { $push: { orders: newOrder._id } },
       { new: true }
+      
     ).populate('orders');
 
     if (!updatedStore) {
@@ -383,3 +381,4 @@ export const placeNewOrderController = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+ 

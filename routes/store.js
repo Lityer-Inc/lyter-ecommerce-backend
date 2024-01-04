@@ -15,6 +15,8 @@ storeRouter.delete("/:storeId",deleteStore);//deletes the whole store along with
 storeRouter.delete("/:storeId/products/:productId",deleteProduct);//deletes a specific product of a specific store
 storeRouter.put("/:storeId",updateStoreController);//updates the details of the store
 storeRouter.put("/:storeId/products/:productId",updateProductController);//updates a specific product within a specific store
+
+//apis that are yet to be tested
 storeRouter.get("/:storeId/orders",getStoreOrdersController);
 storeRouter.get("/:storeId/orders/:orderId",getSpecificStoreOrderController);
 storeRouter.post("/:storeId/orders",placeNewOrderController);
