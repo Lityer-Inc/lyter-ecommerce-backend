@@ -38,7 +38,11 @@ const storeSchema = new mongoose.Schema({
    type: [productSchema],
    default:[],
 
-  }
+  },
+  orders: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Order',
+  }],
 });
 
 export const storeModel = mongoose.model("Store", storeSchema);

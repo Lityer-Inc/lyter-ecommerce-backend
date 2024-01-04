@@ -1,43 +1,49 @@
+import { storeModel,orderModel } from "../models/Store.js";
 
-import  {storeModel}  from "../models/Store.js";
-
-
-export const addStoreProduct=async (req,res)=>{
+export const addStoreProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const product={
-      name:req.body.name,
-      storeName:req.body.storeName,
-      countInStock:req.body.countInStock,
-      image:req.body.image,
-      price:req.body.price,
-      rating:req.body.rating,
-      isFeatured:req.body.isFeatured,    
-      description:req.body.description,
-      barcode:req.body.barcode,
-      status:req.body.status,
-    } 
+    const product = {
+      name: req.body.name,
+      storeName: req.body.storeName,
+      countInStock: req.body.countInStock,
+      image: req.body.image,
+      price: req.body.price,
+      rating: req.body.rating,
+      isFeatured: req.body.isFeatured,
+      description: req.body.description,
+      barcode: req.body.barcode,
+      status: req.body.status,
+    };
 
     // Check if the store with the given ID exists
-    const store = await storeModel.findOne({_id:id});
+    const store = await storeModel.findOne({ _id: id });
 
     if (!store) {
       return res.status(404).json({ error: "Store not found." });
     }
 
     // Check for required fields
-    if (  !product.name || !product.storeName || !product.countInStock || !product.image || !product.price || !product.description || !product.barcode || !product.status) {
-      // return res.status(400).json({ error: "Required fields are missing." });
-      return res.status(400).json(product);
+    if (
+      !product.name ||
+      !product.storeName ||
+      !product.countInStock ||
+      !product.image ||
+      !product.price ||
+      !product.description ||
+      !product.barcode ||
+      !product.status
+    ) {
+      return res.status(400).json({ error: "Required fields are missing." });
+      // return res.status(400).json(product);
     }
-    
-   
+
     store.products = Array.isArray(store.products) ? store.products : [];
     // Add the new product to the store's products array
-     store.products = [...store.products, product];
-     
+    store.products = [...store.products, product];
+
     // Save the updated store with the new product
-     const updatedStore = await store.save();
+    const updatedStore = await store.save();
     // Respond with the updated store data
     return res.status(200).json(updatedStore);
   } catch (error) {
@@ -45,8 +51,7 @@ export const addStoreProduct=async (req,res)=>{
     console.error("Error adding product to store:", error);
     return res.status(500).send("Internal Server Error");
   }
-}
-
+};
 
 export const AddStore = async (req, res) => {
   try {
@@ -56,7 +61,6 @@ export const AddStore = async (req, res) => {
     }
 
     // Create the store data
-    
 
     // Create a new store instance
     const newStore = new storeModel({
@@ -68,7 +72,7 @@ export const AddStore = async (req, res) => {
       revenue: req.body.revenue || 0,
       sales: req.body.sales || 0,
       products: null,
-      id:req.body.id,
+      id: req.body.id,
     });
 
     // Save the new store to the database
@@ -83,7 +87,6 @@ export const AddStore = async (req, res) => {
   }
 };
 
- 
 //gets the list of all the available stores in the mongodb
 export const getStores = async (req, res) => {
   try {
@@ -100,13 +103,12 @@ export const getStores = async (req, res) => {
   }
 };
 
-
-export const getSpecificStore = async (req, res) => {//returns the specific store according to the custom id provided. Not the MongoDb id
+export const getSpecificStore = async (req, res) => {
+  //returns the specific store according to the MongoDb id
   try {
+    const stores = await storeModel.findOne({ _id: req.params.id });
 
-    const stores = await storeModel.findOne({_id:req.params.id});
-
-    if (stores.length===0) {
+    if (stores.length === 0) {
       return res.status(404).json({ message: "Store Does not Exist" });
     }
 
@@ -117,10 +119,10 @@ export const getSpecificStore = async (req, res) => {//returns the specific stor
   }
 };
 
-
-export const getStoreProducts = async (req, res) => {//returns the store products in the db
+export const getStoreProducts = async (req, res) => {
+  //returns the store products in the db
   try {
-    const stores = await storeModel.findOne({_id:req.params.id});
+    const stores = await storeModel.findOne({ _id: req.params.id });
 
     if (!stores) {
       return res.status(404).json({ message: "Store Does not Exist" });
@@ -132,12 +134,11 @@ export const getStoreProducts = async (req, res) => {//returns the store product
   }
 };
 
-
 //returns a specific product in a store
-export const getSpecificStoreProduct=async (req,res)=>{
+export const getSpecificStoreProduct = async (req, res) => {
   try {
-    const storeId=req.params.storeId;
-    const productId=req.params.productId;
+    const storeId = req.params.storeId;
+    const productId = req.params.productId;
     // Find the store by ID
     const store = await storeModel.findById(storeId);
 
@@ -151,7 +152,9 @@ export const getSpecificStoreProduct=async (req,res)=>{
 
     // Check if the product exists
     if (!product) {
-      return res.status(404).json({ message: "Product not found in the store" });
+      return res
+        .status(404)
+        .json({ message: "Product not found in the store" });
     }
 
     // Return the specific product details
@@ -160,7 +163,7 @@ export const getSpecificStoreProduct=async (req,res)=>{
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
 
 //deletes the store from the db as the _id is recieved by params
 export const deleteStore = async (req, res) => {
@@ -170,23 +173,22 @@ export const deleteStore = async (req, res) => {
     // Check if the store exists
     const existingStore = await storeModel.findById(id);
     if (!existingStore) {
-      return res.status(404).json({ error: 'Store not found' });
+      return res.status(404).json({ error: "Store not found" });
     }
 
     // If the store exists, proceed with deletion
     const deletedStore = await storeModel.findByIdAndDelete(id);
 
     if (!deletedStore) {
-      return res.status(500).json({ error: 'Failed to delete store' });
+      return res.status(500).json({ error: "Failed to delete store" });
     }
 
-    return res.json({ message: 'Store deleted successfully' });
+    return res.json({ message: "Store deleted successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 //deletes a specific product from the db from a specific store both id's recieved via parameters.
 export const deleteProduct = async (req, res) => {
@@ -197,16 +199,16 @@ export const deleteProduct = async (req, res) => {
     // Check if the store exists
     const existingStore = await storeModel.findById(storeId);
     if (!existingStore) {
-      return res.status(404).json({ error: 'Store not found' });
+      return res.status(404).json({ error: "Store not found" });
     }
-
+  
     // Check if the product exists within the store
     const existingProductIndex = existingStore.products.findIndex(
       (product) => product._id.toString() === productId
     );
 
     if (existingProductIndex === -1) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     // If the product exists, remove it from the array
@@ -215,10 +217,10 @@ export const deleteProduct = async (req, res) => {
     // Save the updated store
     await existingStore.save();
 
-    return res.json({ message: 'Product deleted successfully' });
+    return res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -231,15 +233,17 @@ export const updateStoreController = async (req, res) => {
     // Check if the store exists
     const existingStore = await storeModel.findById(storeId);
     if (!existingStore) {
-      return res.status(404).json({ error: 'Store not found' });
+      return res.status(404).json({ error: "Store not found" });
     }
 
     // Update the store fields manually
     existingStore.name = body.name || existingStore.name;
     existingStore.avatar = body.avatar || existingStore.avatar;
     existingStore.store_email = body.store_email || existingStore.store_email;
-    existingStore.deliveryTime = body.deliveryTime || existingStore.deliveryTime;
+    existingStore.deliveryTime =body.deliveryTime || existingStore.deliveryTime;
     existingStore.description = body.description || existingStore.description;
+    existingStore.revenue = body.revenue || existingStore.revenue;
+    existingStore.sales = body.sales || existingStore.sales;
 
     // Save the updated store
     const updatedStore = await existingStore.save();
@@ -247,7 +251,7 @@ export const updateStoreController = async (req, res) => {
     return res.json(updatedStore);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -261,16 +265,17 @@ export const updateProductController = async (req, res) => {
     // Check if the store exists
     const existingStore = await storeModel.findById(storeId);
     if (!existingStore) {
-      return res.status(404).json({ error: 'Store not found' });
+      return res.status(404).json({ error: "Store not found" });
     }
 
     // Check if the product exists within the store
+
     const existingProduct = existingStore.products.find(
       (product) => product._id.toString() === productId
     );
 
     if (!existingProduct) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     // Update the product fields manually
@@ -288,9 +293,92 @@ export const updateProductController = async (req, res) => {
     // Save the updated store
     await existingStore.save();
 
-    return res.json({ message: 'Product updated successfully' });
+    return res.json({ message: "Product updated successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+export const getStoreOrdersController = async (req, res) => {
+  const { storeId } = req.params;
+
+  try {
+   
+    const storeOrders = await storeModel.findById(storeId).populate('products');
+    
+    if (!storeOrders) {
+      return res.status(404).json({ message: "Store not found" });
+    }
+
+    const orders = storeOrders.orders || [];
+
+    return res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+export const getSpecificStoreOrderController = async (req, res) => {
+  const { storeId, orderId } = req.params;
+
+  try {
+    
+    const storeOrder = await storeModel.findOne({ _id: storeId, "orders._id": orderId }).populate('products');
+    
+    if (!storeOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    
+    const order = storeOrder.orders.find(order => order._id.toString() === orderId);
+
+    return res.status(200).json(order);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const placeNewOrderController = async (req, res) => {
+  const { storeId } = req.params;
+  const userId=req.body.userId;
+  const products=req.body.products;
+  const total=req.body.total;
+  try {
+    // Create a new order
+    const newOrder = await orderModel.create({ products, total});
+
+    // Update the store with the new order
+    const updatedStore = await storeModel.findByIdAndUpdate(
+      storeId,
+      { $push: { orders: newOrder._id } },
+      { new: true }
+      
+    ).populate('orders');
+
+    if (!updatedStore) {
+      return res.status(404).json({ message: "Store not found" });
+    }
+
+    // Update the user's profile with the new order
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $push: { orders: newOrder._id } },
+      { new: true }
+    ).populate('orders');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(201).json(newOrder);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+ 
