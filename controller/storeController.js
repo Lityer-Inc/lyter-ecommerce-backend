@@ -1,4 +1,86 @@
+import { upload } from "../middleWare/multer.js";
+import { storeModel } from "../models/Store.js";
+import { cloudinary } from "../utils/cloudinary.js";
 import { storeModel,orderModel } from "../models/Store.js";
+
+export const addStoreProduct = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        // Use Cloudinary to upload the image
+        const result = await cloudinary.uploader.upload(req.file.path);
+
+        const product = {
+            name: req.body.name,
+            storeName: req.body.storeName,
+            countInStock: req.body.countInStock,
+            image: result.secure_url, // Use the secure_url from Cloudinary response
+            price: req.body.price,
+            rating: req.body.rating,
+            isFeatured: req.body.isFeatured,
+            description: req.body.description,
+            barcode: req.body.barcode,
+            status: req.body.status,
+        };
+
+        // Check if the store with the given ID exists
+        const store = await storeModel.findOne({ _id: id });
+
+        if (!store) {
+            return res.status(404).json({ error: "Store not found." });
+        }
+
+        // Check for required fields
+        if (!product.name || !product.storeName || !product.countInStock || !product.image || !product.price || !product.description || !product.barcode || !product.status) {
+            return res.status(400).json({ error: "Required fields are missing." });
+        }
+
+        store.products = Array.isArray(store.products) ? store.products : [];
+        // Add the new product to the store's products array
+        store.products = [...store.products, product];
+
+        // Save the updated store with the new product
+        const updatedStore = await store.save();
+        // Respond with the updated store data
+        return res.status(200).json(updatedStore);
+    } catch (error) {
+        // Handle error
+        console.error("Error adding product to store:", error);
+        return res.status(500).send("Internal Server Error");
+    }
+};
+
+
+export const AddStore = async (req, res) => {
+  try {
+      // Check for required fields
+      if (!req.body.name || !req.body.store_email || !req.body.deliveryTime) {
+          return res.status(400).json({ error: "Required fields are missing." });
+      }
+
+      // Use Cloudinary to upload the avatar
+      const avatarResult = await cloudinary.uploader.upload(req.file.path);
+
+      // Create a new store instance
+      const newStore = new storeModel({
+          name: req.body.name,
+          store_email: req.body.store_email,
+          deliveryTime: req.body.deliveryTime,
+          description: req.body.description || null,
+          avatar: avatarResult.secure_url, // Use the secure_url from Cloudinary response
+          revenue: req.body.revenue || 0,
+          sales: req.body.sales || 0,
+          products: null,
+          id: req.body.id,
+      });
+
+      // Save the new store to the database
+      const savedStore = await newStore.save();
+
+      // Respond with the saved store data
+      res.status(201).json(savedStore);
+
+
 
 export const addStoreProduct = async (req, res) => {
   try {
@@ -80,10 +162,11 @@ export const AddStore = async (req, res) => {
 
     // Respond with the saved store data
     res.status(201).json(savedStore);
+
   } catch (error) {
-    // Handle error
-    console.error("Error adding store:", error);
-    res.status(500).send("Internal Server Error");
+      // Handle error
+      console.error("Error adding store:", error);
+      res.status(500).send("Internal Server Error");
   }
 };
 
@@ -229,16 +312,18 @@ export const updateStoreController = async (req, res) => {
   try {
     const storeId = req.params.storeId;
     const body = req.body;
-
+     
     // Check if the store exists
     const existingStore = await storeModel.findById(storeId);
     if (!existingStore) {
       return res.status(404).json({ error: "Store not found" });
     }
+    // Use Cloudinary to update the avatar
+    const avatarResult = await cloudinary.uploader.upload(req.file.path);
 
     // Update the store fields manually
     existingStore.name = body.name || existingStore.name;
-    existingStore.avatar = body.avatar || existingStore.avatar;
+    existingStore.avatar = avatarResult.secure_url|| existingStore.avatar;
     existingStore.store_email = body.store_email || existingStore.store_email;
     existingStore.deliveryTime =body.deliveryTime || existingStore.deliveryTime;
     existingStore.description = body.description || existingStore.description;
@@ -277,12 +362,14 @@ export const updateProductController = async (req, res) => {
     if (!existingProduct) {
       return res.status(404).json({ error: "Product not found" });
     }
+    // Use Cloudinary to update the avatar
+    const imageResult = await cloudinary.uploader.upload(req.file.path);
 
     // Update the product fields manually
     existingProduct.name = body.name || existingProduct.name;
     existingProduct.storeName = body.storeName || existingProduct.storeName;
     existingProduct.countInStock = body.countInStock || existingProduct.countInStock;
-    existingProduct.image = body.image || existingProduct.image;
+    existingProduct.image = imageResult.secure_url || existingProduct.image;
     existingProduct.price = body.price || existingProduct.price;
     existingProduct.rating = body.rating || existingProduct.rating;
     existingProduct.isFeatured = body.isFeatured || existingProduct.isFeatured;
