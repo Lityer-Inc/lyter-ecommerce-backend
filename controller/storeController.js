@@ -1,7 +1,7 @@
 import { upload } from "../middleWare/multer.js";
 import { storeModel } from "../models/Store.js";
 import { cloudinary } from "../utils/cloudinary.js";
-import { storeModel,orderModel } from "../models/Store.js";
+import { orderModel } from "../models/order.js";
 
 export const addStoreProduct = async (req, res) => {
     try {
