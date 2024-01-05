@@ -6,8 +6,13 @@ import {handleErrors} from "./middleWare/error.js";
 import {Logger} from "./middleWare/log.js";
 import mongoose from "mongoose";
 import storeRouter from "./routes/store.js";
+import { jwtVerify } from "./routes/jwt.js";
+import dotenv from 'dotenv';
 
 const app = express(); 
+
+
+dotenv.config();
 
 //parse application/json
 app.use(express.json());
@@ -16,8 +21,6 @@ app.use(cors());
 
 // Logger middleware
 app.use(Logger.logRequest);
-
-
 
 //const EndpointHead = process.env.EndpointHead;
 const EndpointHead = ""; // temporary...- JF
@@ -29,6 +32,7 @@ const EndpointHead = ""; // temporary...- JF
 // app.use(`${EndpointHead}/auth`, authRouter);
 app.use(`${EndpointHead}/user`, userRouter);
 app.use(`${EndpointHead}/stores`, storeRouter); 
+app.use(`${EndpointHead}/stores`, storeRouter);
 
 // Middleware to log incoming requests to the orders route
 
