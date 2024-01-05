@@ -2,6 +2,7 @@ import userModel from "../models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+
 // userRegisterController
 export const userRegisterController = async (req, res) => {
   console.log("Received request data:", req.body)
@@ -38,7 +39,6 @@ export const userRegisterController = async (req, res) => {
       });
 
       const newUser = await user.save();
-
       //  JWT
     const token = jwt.sign(
       { email: newUser.email, id: newUser._id },
