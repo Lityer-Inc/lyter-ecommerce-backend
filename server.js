@@ -8,15 +8,14 @@ import mongoose from "mongoose";
 import storeRouter from "./routes/store.js";
 
 const app = express(); 
+
 //parse application/json
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
 // Logger middleware
 app.use(Logger.logRequest);
-// app.get("/", function (req, res) {
-//   res.send("welcome");
-// });
 
 
 
@@ -29,10 +28,7 @@ const EndpointHead = ""; // temporary...- JF
 
 // app.use(`${EndpointHead}/auth`, authRouter);
 app.use(`${EndpointHead}/user`, userRouter);
-app.use(`${EndpointHead}/stores`, storeRouter);  // done with mostly store routes...however some need to be implemented
-// app.use(`${EndpointHead}/retailer`, customerRouter); // probably retailer should have its own route.
-// app.get(`${EndpointHead}/decodeJwt`, DecodeJwt); // probably retailer should have its own route.
-   
+app.use(`${EndpointHead}/stores`, storeRouter); 
 
 // Middleware to log incoming requests to the orders route
 
