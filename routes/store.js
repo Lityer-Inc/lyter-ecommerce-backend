@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getSpecificStoreOrderController,getStoreOrdersController,placeNewOrderController } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getSpecificStoreOrderController,getStoreOrdersController,placeNewOrderController, storeCartGetController, storeCartPutController, storeCartPostController } from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 import { authentication } from "../middleWare/authentication.js";
@@ -22,5 +22,7 @@ storeRouter.put("/:storeId/products/:productId", authentication, upload.single('
 storeRouter.get("/:storeId/orders",getStoreOrdersController);
 storeRouter.get("/:storeId/orders/:orderId",getSpecificStoreOrderController);
 storeRouter.post("/:storeId/orders",placeNewOrderController);
-
+storeRouter.get(":/storeId/cart",storeCartGetController);
+storeRouter.post(":/storeId/cart",storeCartPostController);
+storeRouter.put(":/storeId/cart",storeCartPutController);
 export default storeRouter;

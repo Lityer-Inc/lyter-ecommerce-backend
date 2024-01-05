@@ -1,12 +1,10 @@
 import express  from "express";
 import userRouter from "./routes/user.js";
-import orderRouter from "./routes/order.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 import {handleErrors} from "./middleWare/error.js";
 import {Logger} from "./middleWare/log.js";
 import mongoose from "mongoose";
-import customerRouter from "./routes/customer.js";
 import storeRouter from "./routes/store.js";
 
 const app = express(); 
@@ -37,11 +35,7 @@ app.use(`${EndpointHead}/stores`, storeRouter);  // done with mostly store route
    
 
 // Middleware to log incoming requests to the orders route
-app.use(`/orders`, (req, res, next) => {
-  console.log(`Incoming request for orders route: ${req.method} ${req.originalUrl}`);
-  console.log(`Request body:`, req.body);
-  next();
-}, orderRouter);
+
 app.use(handleErrors);
 
 app.listen(8000, function () {

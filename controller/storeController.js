@@ -24,7 +24,7 @@ export const addStoreProduct = async (req, res) => {
         };
 
         // Check if the store with the given ID exists
-        const store = await storeModel.findOne({ _id: id });
+        const store = await storeModel.findaOne({ _id: id });
 
         if (!store) {
             return res.status(404).json({ error: "Store not found." });
@@ -251,7 +251,7 @@ export const updateStoreController = async (req, res) => {
 
     // Save the updated store
     const updatedStore = await existingStore.save();
-
+    
     return res.json(updatedStore);
   } catch (error) {
     console.error(error);
@@ -387,4 +387,82 @@ export const placeNewOrderController = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+
+// GET store's cart
+export const storeCartGetController = async (req, res) => {
+  const { storeId } = req.params;
+
+  try {
+    const store = await storeModel
+      .findById(storeId)
+      .populate('orders')
+      .exec();
+
+    if (!store) {
+      return res.status(404).json({ message: 'Store not found' });
+    }
+
+    return res.status(200).json(store.orders);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+// POST to add an order to the store's cart
+export const storeCartPostController = async (req, res) => {
+  const { storeId } = req.params;
+  const { userId, products, total } = req.body;
+
+  try {
+    const newOrder = await orderModel.create({ products, total });
+
+    const updatedStore = await storeModel.findByIdAndUpdate(
+      storeId,
+      { $push: { orders: newOrder._id } },
+      { new: true }
+    ).populate('orders');
+
+    if (!updatedStore) {
+      return res.status(404).json({ message: 'Store not found' });
+    }
+
+    return res.status(201).json(newOrder);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+// PUT to update the store's cart
+export const storeCartPutController = async (req, res) => {
+  const { storeId } = req.params;
+  const { orderId, updatedOrderData } = req.body;
+
+  try {
+    const updatedOrder = await orderModel.findByIdAndUpdate(
+      orderId,
+      updatedOrderData,
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    const updatedStore = await storeModel
+      .findByIdAndUpdate(storeId, { $set: { orders: [] } }, { new: true })
+      .populate('orders');
+
+    if (!updatedStore) {
+      return res.status(404).json({ message: 'Store not found' });
+    }
+
+    return res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
  
