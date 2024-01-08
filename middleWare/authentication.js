@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
 
 // Middleware for checking JWT
-export const authentication = (req, res, next) => {
-    const authHeader = req.headers.authorization;
+export const authentication = async (req, res, next) => {
+    const authHeader = await req.headers.authorization;
     const token = authHeader.split(" ")[1];
+    console.log('token : ', token);
     if (!token) {
         return res.status(401).json({
             error: "Unauthorized"
