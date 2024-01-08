@@ -23,7 +23,7 @@ export const addStoreProduct = async (req, res) => {
         };
 
         // Check if the store with the given ID exists
-        const store = await storeModel.findaOne({ _id: id });
+        const store = await storeModel.findOne({ _id: id });
 
         if (!store) {
             return res.status(404).json({ error: "Store not found." });
