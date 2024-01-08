@@ -413,7 +413,8 @@ export const storeCartGetController = async (req, res) => {
 // POST to add an order to the store's cart
 export const storeCartPostController = async (req, res) => {
   const { storeId } = req.params;
-  const { userId, products, total } = req.body;
+  const products=req.body.products;
+  const total=req.body.total;
 
   try {
     const newOrder = await orderModel.create({ products, total });
@@ -437,8 +438,9 @@ export const storeCartPostController = async (req, res) => {
 
 // PUT to update the store's cart
 export const storeCartPutController = async (req, res) => {
-  const { storeId } = req.params;
-  const { orderId, updatedOrderData } = req.body;
+  const storeId  = req.params.storeId;
+  const orderId=req.body.orderId;
+  const updatedOrderData=req.body.updatedOrderId;
 
   try {
     const updatedOrder = await orderModel.findByIdAndUpdate(
