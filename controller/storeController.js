@@ -1,4 +1,3 @@
-import { upload } from "../middleWare/multer.js";
 import { storeModel } from "../models/Store.js";
 import { cloudinary } from "../utils/cloudinary.js";
 import { orderModel } from "../models/order.js";
