@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const productSchema=new mongoose.Schema({
-  image: {
+  img: {
         type: String, // store images as Buffer data
         required: true,
 },
