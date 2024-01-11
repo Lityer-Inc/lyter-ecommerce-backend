@@ -10,7 +10,7 @@ export const addStoreProduct = async (req, res) => {
       const imageResult = await cloudinary.uploader.upload(req.file.path);
 
       const product = {
-          image: imageResult.secure_url,
+          img: imageResult.secure_url,
           title: req.body.title,
           description: req.body.description,
           price: req.body.price,
@@ -288,7 +288,7 @@ export const updateProductController = async (req, res) => {
       existingProduct.weight = body.weight || existingProduct.weight;
       existingProduct.category = body.category || existingProduct.category;
       existingProduct.tags = body.tags || existingProduct.tags;
-      existingProduct.image = imageResult.secure_url || existingProduct.image;
+      existingProduct.img = imageResult.secure_url || existingProduct.img;
 
       // Save the updated store
       await existingStore.save();
@@ -412,7 +412,7 @@ export const storeCartPostController = async (req, res) => {
 
   try {
     const newOrder = await orderModel.create({ products, total });
-
+ 
     const updatedStore = await storeModel.findByIdAndUpdate(
       storeId,
       { $push: { orders: newOrder._id } },
