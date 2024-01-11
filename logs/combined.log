@@ -999,3 +999,5 @@
 {"level":"info","message":"GET /user/decodeJwt","timestamp":"2024-01-08T15:10:03.386Z"}
 {"level":"info","message":"POST /user/login","timestamp":"2024-01-08T15:14:08.224Z"}
 {"level":"info","message":"GET /user/decodeJwt","timestamp":"2024-01-08T15:14:19.980Z"}
+{"level":"info","message":"GET /stores/","timestamp":"2024-01-11T11:35:28.756Z"}
+{"level":"info","message":"GET /stores/","timestamp":"2024-01-11T11:36:29.704Z"}
