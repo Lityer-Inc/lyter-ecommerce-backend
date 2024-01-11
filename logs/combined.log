@@ -1001,3 +1001,13 @@
 {"level":"info","message":"GET /user/decodeJwt","timestamp":"2024-01-08T15:14:19.980Z"}
 {"level":"info","message":"GET /stores/","timestamp":"2024-01-11T11:35:28.756Z"}
 {"level":"info","message":"GET /stores/","timestamp":"2024-01-11T11:36:29.704Z"}
+{"level":"info","message":"GET /stores/","timestamp":"2024-01-11T11:40:58.963Z"}
+{"level":"info","message":"POST /check","timestamp":"2024-01-11T11:43:14.405Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2024-01-11T11:43:14.409Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2024-01-11T11:43:17.214Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2024-01-11T11:43:27.334Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2024-01-11T11:43:30.566Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2024-01-11T11:43:32.155Z"}
+{"level":"info","message":"GET /decodeJwt","timestamp":"2024-01-11T11:43:40.425Z"}
+{"level":"info","message":"GET /stores/","timestamp":"2024-01-11T11:46:43.702Z"}
+{"level":"info","message":"GET /stores/6589e05b5982dc4074a8304a/products","timestamp":"2024-01-11T11:46:58.044Z"}
