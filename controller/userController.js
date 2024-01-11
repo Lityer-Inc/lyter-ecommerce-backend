@@ -174,3 +174,87 @@ export const userRegisterController = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
  }
+
+
+
+ export const addToCartController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.body.productId; 
+
+    // Add product to the user's cart
+    await userModel.findByIdAndUpdate(
+      userId,
+      { $push: { cart: { product: productId } } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Product added to cart successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Controller to update the quantity of a product in the user's cart
+export const updateCartItemController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.body.productId;
+    const quantity = req.body.quantity;
+
+    // Update quantity of the specified product in the user's cart
+    await userModel.findOneAndUpdate(
+      { _id: userId, 'cart.product': productId },
+      { $set: { 'cart.$.quantity': quantity } }
+    );
+
+    res.status(200).json({ message: "Cart item updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Controller to get the user's cart
+export const getCartController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Retrieve the user's cart
+    const user = await userModel.findById(userId).populate('cart.product');
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user.cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Controller to delete a product from the user's cart
+export const deleteCartItemController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+
+    // Remove the specified product from the user's cart
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: { product: productId } } },
+      { new: true }
+    ).populate('cart.product');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(updatedUser.cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
