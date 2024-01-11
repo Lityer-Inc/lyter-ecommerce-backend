@@ -37,7 +37,14 @@ const storeSchema = new mongoose.Schema({
   products: {
    type: [productSchema],
    default:[],
-
+  },
+  category: {
+    type: [{ type: String }],
+    default: ["Grocery", "Organic"]
+  },
+  tags: {
+    type: [{type: String}],
+    default: ["Accepts EBT", "In-store prices"]
   },
   orders: [{
     type: mongoose.Schema.Types.ObjectId,
