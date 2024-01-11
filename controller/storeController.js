@@ -49,38 +49,40 @@ export const addStoreProduct = async (req, res) => {
 
 export const AddStore = async (req, res) => {
   try {
-      // Check for required fields
-      if (!req.body.name || !req.body.store_email || !req.body.deliveryTime) {
-          return res.status(400).json({ error: "Required fields are missing." });
-      }
-
-      // Use Cloudinary to upload the avatar
-      const avatarResult = await cloudinary.uploader.upload(req.file.path);
-
-      // Create a new store instance
-      const newStore = new storeModel({
-          name: req.body.name,
-          store_email: req.body.store_email,
-          deliveryTime: req.body.deliveryTime,
-          description: req.body.description || null,
-          avatar: avatarResult.secure_url, // Use the secure_url from Cloudinary response
-          revenue: req.body.revenue || 0,
-          sales: req.body.sales || 0,
-          products: null,
-          id: req.body.id,
-      });
-
-      // Save the new store to the database
-      const savedStore = await newStore.save();
-
-      // Respond with the saved store data
-      res.status(201).json(savedStore);
-    }catch (error) {
-      // Handle error
-      console.error("Error addingstore:", error);
-      return res.status(500).send("Internal Server Error");
+    // Check for required fields
+    if (!req.body.name || !req.body.store_email || !req.body.deliveryTime) {
+      return res.status(400).json({ error: "Required fields are missing." });
     }
+
+    // Use Cloudinary to upload the avatar
+    const avatarResult = await cloudinary.uploader.upload(req.file.path);
+
+    // Create a new store instance
+    const newStore = new storeModel({
+      name: req.body.name,
+      store_email: req.body.store_email,
+      deliveryTime: req.body.deliveryTime,
+      description: req.body.description || null,
+      avatar: avatarResult.secure_url, // Use the secure_url from Cloudinary response
+      revenue: req.body.revenue || 0,
+      sales: req.body.sales || 0,
+      products: null,
+      category: req.body.category || ["Grocery", "Organic"],
+      tags: req.body.tags || ["Accepts EBT", "In-store prices"],
+      id: req.body.id,
+    });
+
+    // Save the new store to the database
+    const savedStore = await newStore.save();
+
+    // Respond with the saved store data
+    res.status(201).json(savedStore);
+  } catch (error) {
+    // Handle error
+    console.error("Error adding store:", error);
+    return res.status(500).send("Internal Server Error");
   }
+};
 
 
 
@@ -228,27 +230,30 @@ export const updateStoreController = async (req, res) => {
   try {
     const storeId = req.params.storeId;
     const body = req.body;
-     
+
     // Check if the store exists
     const existingStore = await storeModel.findById(storeId);
     if (!existingStore) {
       return res.status(404).json({ error: "Store not found" });
     }
+
     // Use Cloudinary to update the avatar
     const avatarResult = await cloudinary.uploader.upload(req.file.path);
 
     // Update the store fields manually
     existingStore.name = body.name || existingStore.name;
-    existingStore.avatar = avatarResult.secure_url|| existingStore.avatar;
+    existingStore.avatar = avatarResult.secure_url || existingStore.avatar;
     existingStore.store_email = body.store_email || existingStore.store_email;
     existingStore.deliveryTime = body.deliveryTime || existingStore.deliveryTime;
     existingStore.description = body.description || existingStore.description;
     existingStore.revenue = body.revenue || existingStore.revenue;
     existingStore.sales = body.sales || existingStore.sales;
+    existingStore.category = body.category || existingStore.category;
+    existingStore.tags = body.tags || existingStore.tags;
 
     // Save the updated store
     const updatedStore = await existingStore.save();
-    
+
     return res.json(updatedStore);
   } catch (error) {
     console.error(error);
