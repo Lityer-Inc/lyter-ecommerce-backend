@@ -6,7 +6,6 @@ import {handleErrors} from "./middleWare/error.js";
 import {Logger} from "./middleWare/log.js";
 import mongoose from "mongoose";
 import storeRouter from "./routes/store.js";
-import { jwtVerify } from "./routes/jwt.js";
 import dotenv from 'dotenv';
 
 const app = express(); 
