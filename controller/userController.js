@@ -222,7 +222,7 @@ export const getCartController = async (req, res) => {
     const userId = req.params.userId;
 
     // Retrieve the user's cart
-    const user = await userModel.findById(userId).populate('cart.product');
+    const user = await userModel.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
