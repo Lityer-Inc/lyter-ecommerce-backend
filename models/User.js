@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-
+import { productSchema } from "./Products.js";
+const Product = mongoose.model("Product", productSchema);
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
