@@ -1042,3 +1042,5 @@
 {"level":"info","message":"GET /user/admin","timestamp":"2024-01-11T14:59:34.898Z"}
 {"level":"info","message":"GET /user/admin","timestamp":"2024-01-11T15:01:14.057Z"}
 {"level":"info","message":"GET /user/admin","timestamp":"2024-01-11T15:01:51.919Z"}
+{"level":"info","message":"GET /user/65a11fde0532fb3170bc8d0d/cart","timestamp":"2024-01-12T12:40:12.207Z"}
+{"level":"info","message":"GET /user/65a11fde0532fb3170bc8d0d/cart","timestamp":"2024-01-12T12:40:17.495Z"}

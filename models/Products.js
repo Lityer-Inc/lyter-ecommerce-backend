@@ -34,6 +34,7 @@ description: {
 }
 
 );
+export const Product = mongoose.model("Product", productSchema);
 
 
 // export const productModel=mongoose.Model("product",productSchema);
