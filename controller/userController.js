@@ -2,7 +2,9 @@ import userModel from "../models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import adminModel from "../models/admin.js";
-
+import { storeModel } from "../models/Store.js";
+import mongoose from "mongoose";
+import { productSchema } from "../models/Products.js";
 
 // userRegisterController
 export const userRegisterController = async (req, res) => {
@@ -176,16 +178,23 @@ export const userRegisterController = async (req, res) => {
  }
 
 
-
+const mdl=mongoose.model("prod",productSchema)
  export const addToCartController = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const productId = req.body.productId; 
+    const productId = req.body.productId;
+    const storeId=req.body.storeId; 
+    const store=await storeModel.findById(storeId);
+    const strr=store.products.filter(itm=>itm._id==productId);
 
+  const product=strr[0];
+  
+
+  // res.json(product)
     // Add product to the user's cart
     await userModel.findByIdAndUpdate(
       userId,
-      { $push: { cart: { product: productId } } },
+      { $push: { cart: {product} } },
       { new: true }
     );
 
@@ -205,7 +214,7 @@ export const updateCartItemController = async (req, res) => {
 
     // Update quantity of the specified product in the user's cart
     await userModel.findOneAndUpdate(
-      { _id: userId, 'cart.product': productId },
+      { _id: userId, 'cart.product._id': productId },
       { $set: { 'cart.$.quantity': quantity } }
     );
 
@@ -215,7 +224,6 @@ export const updateCartItemController = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-
 // Controller to get the user's cart
 export const getCartController = async (req, res) => {
   try {
@@ -227,8 +235,7 @@ export const getCartController = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    res.json(user.cart);
+    res.status(200).json(user.cart);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -258,3 +265,4 @@ export const deleteCartItemController = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+//
