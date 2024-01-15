@@ -1081,3 +1081,5 @@
 {"level":"info","message":"POST /user/65a1411b3a0e0eafaeaadc1f/cart","timestamp":"2024-01-15T15:54:00.504Z"}
 {"level":"info","message":"POST /user/65a1411b3a0e0eafaeaadc1f/cart","timestamp":"2024-01-15T15:57:07.886Z"}
 {"level":"info","message":"POST /user/65a1411b3a0e0eafaeaadc1f/cart","timestamp":"2024-01-15T15:58:53.236Z"}
+{"level":"info","message":"GET /user/65a11fde0532fb3170bc8d0d/cart","timestamp":"2024-01-15T16:01:51.840Z"}
+{"level":"info","message":"GET /user/65a1411b3a0e0eafaeaadc1f/cart","timestamp":"2024-01-15T16:04:12.307Z"}
