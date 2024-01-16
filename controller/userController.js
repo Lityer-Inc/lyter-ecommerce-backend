@@ -1,7 +1,10 @@
 import userModel from "../models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
+import adminModel from "../models/admin.js";
+import { storeModel } from "../models/Store.js";
+import mongoose from "mongoose";
+import { productSchema } from "../models/Products.js";
 
 // userRegisterController
 export const userRegisterController = async (req, res) => {
@@ -107,7 +110,6 @@ export const userRegisterController = async (req, res) => {
     }
 
   };
-
 // userLogoutController
   export const userLogoutController=(req, res)=>{
     try{
@@ -118,3 +120,149 @@ export const userRegisterController = async (req, res) => {
       return res.status(500).json({error: 'Internal Server Error'})
     }
  }
+
+ export const adminRegisterController=async (req,res)=>{
+  try{
+    if (!req.body.name || !req.body.email || !req.body.password) {
+      return res.status(400).json({ error: "Required fields are missing." });
+    }
+    const existingAdminWithEmail = await adminModel.findOne({ email: req.body.email });
+    if (existingAdminWithEmail) {
+      return res.status(400).json({ error: "User with the same email already exists." });
+    }
+    const name=req.body.name;
+    const password=req.body.password;
+    const email=req.body.email;
+
+    const admin=new adminModel({
+      name:name,
+      email:email,
+      password:password,
+    })
+    const admn=await admin.save();
+    res.status(201).json(admn);
+  }catch(error){
+    console.error(error);
+      return res.status(500).json({ error: 'Internal server error' });
+  }
+ }
+
+ export const getAdminsController = async (req, res) => {
+  try {
+    const admins = await adminModel.find();
+
+    if (admins.length === 0) {
+      return res.status(404).json({ message: "No Admins exist" });
+    }
+
+    res.json(admins);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+ export const getSpecificAdminController=async(req,res)=>{
+  try {
+    const admin = await adminModel.findOne({ _id: req.params.adminId });
+
+    if (admin.length === 0) {
+      return res.status(404).json({ message: "Admin Does not Exist" });
+    }
+
+    res.json(admin);
+  } catch (error) {
+    console.error("Error fetching Admin: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+ }
+
+
+const mdl=mongoose.model("prod",productSchema)
+ export const addToCartController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.body.productId;
+    const storeId=req.body.storeId; 
+    const store=await storeModel.findById(storeId);
+    const strr=store.products.filter(itm=>itm._id==productId);
+
+  const product=strr[0];
+  
+
+  // res.json(product)
+    // Add product to the user's cart
+    await userModel.findByIdAndUpdate(
+      userId,
+      { $push: { cart: {product} } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Product added to cart successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Controller to update the quantity of a product in the user's cart
+export const updateCartItemController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.body.productId;
+    const quantity = req.body.quantity;
+
+    // Update quantity of the specified product in the user's cart
+    await userModel.findOneAndUpdate(
+      { _id: userId, 'cart.product._id': productId },
+      { $set: { 'cart.$.quantity': quantity } }
+    );
+
+    res.status(200).json({ message: "Cart item updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+// Controller to get the user's cart
+export const getCartController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Retrieve the user's cart
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user.cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Controller to delete a product from the user's cart
+export const deleteCartItemController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+
+    // Remove the specified product from the user's cart
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: { product: productId } } },
+      { new: true }
+    ).populate('cart.product');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(updatedUser.cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+//
