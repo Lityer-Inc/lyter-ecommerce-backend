@@ -190,19 +190,39 @@ export const addToCartController = async (req, res) => {
     const productId = req.body.productId;
     const storeId = req.body.storeId;
     const store = await storeModel.findById(storeId);
-    const strr = store.products.filter((itm) => itm._id == productId);
 
+    const strr = store.products.filter((itm) => itm._id == productId);
     const product = strr[0];
 
     // res.json(product)
     // Add product to the user's cart
+    const usr= await userModel.findById(userId);
+    const usrr = usr.cart.filter((itm) => itm.product._id == productId);
+    var productIndex=-1;
+    console.log(usrr.length);
+    if(usrr.length>=1){
+       productIndex = usr.cart.findIndex(
+        (item) => item.product._id.toString() == productId
+      );
+  
+     
+  
+      // Update the quantity of the specified product
+      usr.cart[productIndex].quantity +=1;
+  
+      // Save the updated user document
+      await usr.save();
+  
+      res.status(200).json({ message: "Cart item +1 successfully" });
+    }else{
     await userModel.findByIdAndUpdate(
       userId,
       { $push: { cart: { product } } },
       { new: true }
     );
-
     res.status(200).json({ message: "Product added to cart successfully" });
+    }
+  
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
