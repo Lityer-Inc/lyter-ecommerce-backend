@@ -17,7 +17,8 @@ export const addStoreProduct = async (req, res) => {
           weight: req.body.weight,
           category: req.body.category,
           tags: req.body.tags || [],
-      };
+          storeId:id,
+      }; 
 
       // Check if the store with the given ID exists
       const store = await storeModel.findOne({ _id: id });
@@ -294,6 +295,7 @@ export const updateProductController = async (req, res) => {
       existingProduct.category = body.category || existingProduct.category;
       existingProduct.tags = body.tags || existingProduct.tags;
       existingProduct.img = imageResult.secure_url || existingProduct.img;
+      existingProduct.storeId=existingProduct.storeId;
 
       // Save the updated store
       await existingStore.save();
