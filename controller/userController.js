@@ -199,7 +199,6 @@ export const addToCartController = async (req, res) => {
     const usr= await userModel.findById(userId);
     const usrr = usr.cart.filter((itm) => itm.product._id == productId);
     var productIndex=-1;
-    console.log(usrr.length);
     if(usrr.length>=1){
        productIndex = usr.cart.findIndex(
         (item) => item.product._id.toString() == productId

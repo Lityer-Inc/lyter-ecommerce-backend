@@ -29,6 +29,10 @@ description: {
       },
       tags: {
         type: [],
+      },
+      storeId:{
+        type:String,
+        required:true,
       }
 
 }
