@@ -129,30 +129,42 @@ export const adminRegisterController = async (req, res) => {
     if (!req.body.name || !req.body.email || !req.body.password) {
       return res.status(400).json({ error: "Required fields are missing." });
     }
+
     const existingAdminWithEmail = await adminModel.findOne({
       email: req.body.email,
     });
+
     if (existingAdminWithEmail) {
       return res
         .status(400)
-        .json({ error: "User with the same email already exists." });
+        .json({ error: "Admin with the same email already exists." });
     }
-    const name = req.body.name;
-    const password = req.body.password;
-    const email = req.body.email;
+
+    const { name, email, password } = req.body;
 
     const admin = new adminModel({
       name: name,
       email: email,
       password: password,
     });
-    const admn = await admin.save();
-    res.status(201).json(admn);
+
+    const newAdmin = await admin.save();
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { email: newAdmin.email, id: newAdmin._id },
+      process.env.ACCESS_TOKEN,
+      { expiresIn: "4d" }
+    );
+
+    // Send both newAdmin and token in the response
+    return res.status(201).json({ newAdmin, token });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 export const getAdminsController = async (req, res) => {
   try {
