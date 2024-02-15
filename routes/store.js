@@ -8,7 +8,7 @@ import { upload } from "../middleWare/multer.js";
 const storeRouter = express.Router();
 
 storeRouter.post("/", authentication, upload.single('avatar'), AddStore);// add retailer auth. after done with api.this adds the store to the mongoDB 
-storeRouter.post("/:id/products", authentication, upload.single('image'), addStoreProduct);// adds the product to the store as per the store_id
+storeRouter.post("/:id/products", authentication, upload.single('img'), addStoreProduct);// adds the product to the store as per the store_id
 storeRouter.get("/", getStores);//returns all the stores in the mongoDb 
 storeRouter.get("/:id", getSpecificStore);//Returns the specific store with the store id
 storeRouter.get("/:id/products", getStoreProducts);//get products of the store who's id is passed from frontend
