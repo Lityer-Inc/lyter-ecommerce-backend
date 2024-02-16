@@ -468,3 +468,39 @@ export const storeCartPutController = async (req, res) => {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+// delete cart API
+export const deleteProductFromCartController = async (req, res) => {
+  const { storeId, orderId, productId } = req.params;
+
+  try {
+    // Check if the store exists
+    const existingStore = await storeModel.findById(storeId);
+    if (!existingStore) {
+      return res.status(404).json({ error: "Store not found" });
+    }
+
+    // Check if the order exists within the store's orders
+    const existingOrder = existingStore.orders.find(order => order._id.toString() === orderId);
+    if (!existingOrder) {
+      return res.status(404).json({ error: "Order not found in store's cart" });
+    }
+
+    // Find the product within the order by product ID
+    const productIndex = existingOrder.products.findIndex(product => product._id.toString() === productId);
+    if (productIndex === -1) {
+      return res.status(404).json({ error: "Product not found in the order" });
+    }
+
+    // Remove the product from the order's products array
+    existingOrder.products.splice(productIndex, 1);
+
+    // Save the updated store
+    await existingStore.save();
+
+    return res.json({ message: "Product removed from cart successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
