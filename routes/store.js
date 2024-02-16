@@ -23,7 +23,7 @@ storeRouter.get("/:storeId/orders",getStoreOrdersController);
 storeRouter.get("/:storeId/orders/:orderId",getSpecificStoreOrderController);
 storeRouter.post("/:storeId/orders",placeNewOrderController);
 storeRouter.get(":/storeId/cart",storeCartGetController);
-storeRouter.post("/:storeId/cart",storeCartPostController);
+storeRouter.post(":/storeId/cart",storeCartPostController);
 storeRouter.put(":/storeId/cart",storeCartPutController);
 // DELETE to remove a product from the store's cart
 storeRouter.delete("/:storeId/cart/:orderId/products/:productId", deleteProductFromCartController);

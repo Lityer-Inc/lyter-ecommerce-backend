@@ -139,3 +139,12 @@
 {"level":"info","message":"POST /stores/65cdf5acc2889182a527d316/cart","timestamp":"2024-02-16T15:34:40.930Z"}
 {"level":"info","message":"POST /65cdf5acc2889182a527d316/cart","timestamp":"2024-02-16T15:36:27.652Z"}
 {"level":"info","message":"POST /stores/65cdf5acc2889182a527d316/cart","timestamp":"2024-02-16T15:38:32.363Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:40:28.222Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:42:28.029Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:46:33.026Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:46:35.136Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:51:10.768Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:56:13.457Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T15:57:05.597Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T16:01:05.814Z"}
+{"level":"info","message":"DELETE /stores/65cdf5acc2889182a527d316/cart/65cf81789da04db7b2be8974/products/65cdf94ec6576009ba145b18","timestamp":"2024-02-16T16:04:12.923Z"}

@@ -422,7 +422,7 @@ export const storeCartPostController = async (req, res) => {
  
     const updatedStore = await storeModel.findByIdAndUpdate(
       storeId,
-      { $push: { orders: newOrder._id } },
+      { $push: { orders: ndewOrder._id } },
       { new: true }
     ).populate('orders');
 
@@ -469,34 +469,43 @@ export const storeCartPutController = async (req, res) => {
   }
 };
 
-// delete cart API
+// delete cart product API
 export const deleteProductFromCartController = async (req, res) => {
   const { storeId, orderId, productId } = req.params;
 
   try {
+    // Find the store by ID and populate the orders array
+    const store = await storeModel.findById(storeId).populate('orders');
+
     // Check if the store exists
-    const existingStore = await storeModel.findById(storeId);
-    if (!existingStore) {
+    if (!store) {
       return res.status(404).json({ error: "Store not found" });
     }
 
-    // Check if the order exists within the store's orders
-    const existingOrder = existingStore.orders.find(order => order._id.toString() === orderId);
-    if (!existingOrder) {
+    // Find the order within the store's orders
+    const order = store.orders.find(order => order._id.toString() === orderId);
+
+    // Check if the order exists
+    if (!order) {
       return res.status(404).json({ error: "Order not found in store's cart" });
     }
 
-    // Find the product within the order by product ID
-    const productIndex = existingOrder.products.findIndex(product => product._id.toString() === productId);
+    // Find the index of the product within the order's products array
+    const productIndex = order.products.findIndex(product => product._id.toString() === productId);
+
+    // Check if the product exists in the order
     if (productIndex === -1) {
       return res.status(404).json({ error: "Product not found in the order" });
     }
 
     // Remove the product from the order's products array
-    existingOrder.products.splice(productIndex, 1);
+    order.products.splice(productIndex, 1);
+
+    // Save the updated order
+    await order.save();
 
     // Save the updated store
-    await existingStore.save();
+    await store.save();
 
     return res.json({ message: "Product removed from cart successfully" });
   } catch (error) {
@@ -504,3 +513,7 @@ export const deleteProductFromCartController = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+
+
