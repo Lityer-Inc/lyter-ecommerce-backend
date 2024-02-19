@@ -1,4 +1,4 @@
-import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getSpecificStoreOrderController,getStoreOrdersController,placeNewOrderController, storeCartGetController, storeCartPutController, storeCartPostController } from "../controller/storeController.js";
+import { getStores,getSpecificStore,getStoreProducts,addStoreProduct,getSpecificStoreProduct,deleteStore,deleteProduct,updateProductController,updateStoreController,getSpecificStoreOrderController,getStoreOrdersController,placeNewOrderController, storeCartGetController, storeCartPutController, storeCartPostController, deleteProductFromCartController} from "../controller/storeController.js";
 import express from "express"
 import {AddStore} from '../controller/storeController.js';
 import { authentication } from "../middleWare/authentication.js";
@@ -26,4 +26,6 @@ storeRouter.get(":/storeId/cart",storeCartGetController);
 storeRouter.post(":/storeId/cart",storeCartPostController);
 storeRouter.put(":/storeId/cart",storeCartPutController);
 
+// DELETE to remove a product from the user's cart
+storeRouter.delete("/:storeId/cart/:productId", deleteProductFromCartController);
 export default storeRouter;
