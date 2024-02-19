@@ -422,7 +422,7 @@ export const storeCartPostController = async (req, res) => {
  
     const updatedStore = await storeModel.findByIdAndUpdate(
       storeId,
-      { $push: { orders: ndewOrder._id } },
+      { $push: { orders: newOrder._id } },
       { new: true }
     ).populate('orders');
 
@@ -469,48 +469,46 @@ export const storeCartPutController = async (req, res) => {
   }
 };
 
-// delete cart product API
-export const deleteProductFromCartController = async (req, res) => {
-  const { storeId, orderId, productId } = req.params;
 
+export const deleteProductFromCartController = async (req, res) => {
   try {
-    // Find the store by ID and populate the orders array
+    const { storeId, productId } = req.params;
+
+    // Find the store by ID and populate the orders array with actual order objects
     const store = await storeModel.findById(storeId).populate('orders');
 
     // Check if the store exists
     if (!store) {
-      return res.status(404).json({ error: "Store not found" });
+      return res.status(404).json({ message: 'Store not found' });
     }
 
-    // Find the order within the store's orders
-    const order = store.orders.find(order => order._id.toString() === orderId);
-
-    // Check if the order exists
-    if (!order) {
-      return res.status(404).json({ error: "Order not found in store's cart" });
+    // Check if the product exists within the store's orders (cart)
+    const productOrderIndex = store.orders.findIndex(order => order.products && order.products.some(p => p._id.toString() === productId));
+    
+    if (productOrderIndex === -1) {
+      return res.status(404).json({ message: 'Product not found in the cart' });
     }
 
-    // Find the index of the product within the order's products array
-    const productIndex = order.products.findIndex(product => product._id.toString() === productId);
+    // Remove the product from the cart
+    const removedProduct = store.orders[productOrderIndex].products.find(p => p._id.toString() === productId);
+    store.orders[productOrderIndex].products = store.orders[productOrderIndex].products.filter(p => p._id.toString() !== productId);
 
-    // Check if the product exists in the order
-    if (productIndex === -1) {
-      return res.status(404).json({ error: "Product not found in the order" });
+    // Remove the order from the store's orders array if it has no more products
+    if (store.orders[productOrderIndex].products.length === 0) {
+      const orderId = store.orders[productOrderIndex]._id;
+      // Delete the order from the orderModel
+      await orderModel.findByIdAndDelete(orderId);
+      // Remove the order from the store's orders array
+      store.orders.splice(productOrderIndex, 1);
     }
-
-    // Remove the product from the order's products array
-    order.products.splice(productIndex, 1);
-
-    // Save the updated order
-    await order.save();
 
     // Save the updated store
     await store.save();
 
-    return res.json({ message: "Product removed from cart successfully" });
+    return res.status(200).json({ message: 'Product removed from cart successfully' });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
